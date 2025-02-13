@@ -1,0 +1,11 @@
+{% extends 'recipe.html' %}
+{% load static %}
+
+{% block title %}Task List{% endblock %}
+{% block content %}
+    <section>
+        {% for recipe in recipes %}
+        <a href={{recipe.link}}>{{recipe.name}}</a>
+        {% endfor %}
+    </section>
+{% endblock %}
