@@ -4,12 +4,47 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Title{% endblock %}</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            }
+
+            body {
+                background-color: bisque;
+            }
+
+            header {
+                background-color: coral;
+                color: #1A1066;
+                font-size: 2em;
+                padding: 1rem;
+            }
+            
+            section {
+                display: flex;
+                flex-direction: column;
+                font-size: 1em;
+                padding: 1em;
+            }
+
+            a {
+                color: #0088cc;
+                text-decoration: none;
+            }
+
+            a:visited {
+                font-weight: bold;
+            }
+        </style>
         {% block style %}{% endblock %}
     </head>
     <body>
         <header>
             Recipe Book
         </header>
-        {% block content %}{% endblock %}
+        <section>
+            {% block content %}{% endblock %}
+        </section>
     </body>
 </html>
