@@ -3,7 +3,7 @@ from .views import RecipesList, RecipesDetail
 
 urlpatterns = [
     path('recipes/list', RecipesList.as_view(), name='recipes-list'),
-    path('recipe/<int:pk>', RecipesDetail.as_view(), name='recipes-detail')
+    path('recipe/<int:pk>', RecipesDetail.as_view(), name='recipe')
 ]
 
 app_name = 'ledger'

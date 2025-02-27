@@ -11,7 +11,7 @@ class Ingredient(models.Model):
 
     def get_absolute_url(self):
         '''Returns absolute url to this ingredient's page.'''
-        return reverse('ingredient', args=[str(self.pk)])
+        return reverse('ledger:ingredient', args=[str(self.pk)])
     
     class Meta:
         verbose_name = 'ingredient'
@@ -19,7 +19,7 @@ class Ingredient(models.Model):
 
 
 class Recipe(models.Model):
-    '''Represents a dish.'''
+    '''Represents a recipe.'''
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -27,7 +27,7 @@ class Recipe(models.Model):
 
     def get_absolute_url(self):
         '''Returns absolute url to this recipe.'''
-        return reverse('recipe', args=[self.pk])
+        return reverse('ledger:recipe', args=[self.pk])
     
     class Meta:
         verbose_name = 'recipe'
@@ -35,7 +35,7 @@ class Recipe(models.Model):
 
 
 class RecipeIngredient(models.Model):
-    '''Represents a list of ingredients used to create a dish.'''
+    '''Represents an ingredient that is used in a recipe.'''
     quantity = models.IntegerField()
     ingredient = models.ForeignKey(
         Ingredient,

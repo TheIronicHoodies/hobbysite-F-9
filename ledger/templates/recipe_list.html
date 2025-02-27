@@ -5,9 +5,8 @@
 
 {% block content %}
     <section>
-        <p>Hello World</p>
-        {% for recipe in recipes.all %}
-        <a href="{{recipe.get_absolute_url}}">{{recipe.name}}</a>
+        {% for recipe in object_list %}
+        <a href="{{recipe.get_absolute_url}}">{{recipe}}</a>
         {% endfor %}
     </section>
 {% endblock %}
