@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <ul>
-        {% for object in product_list %}
-                <ul><a href= "{{ object.get_absolute_url }}" >{{ object }}</a></ul>
-        {% endfor %}
-    </ul>
+    <h1>List of products</h1>
+        <ul>
+            {% for object in product_list %}
+                {{ object.productType }}: <a href= "{{ object.get_absolute_url }}" >{{ object }}</a>
+                <br>
+            {% endfor %}
+        </ul>
 {% endblock %}
