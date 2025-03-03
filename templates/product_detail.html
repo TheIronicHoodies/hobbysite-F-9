@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {{ object.name }}
+    <ul>
+        {% for product in object.product.all %}
+            <li>{{ product.product.producType }}: {{ product.name }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
