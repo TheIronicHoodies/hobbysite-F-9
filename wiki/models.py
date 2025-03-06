@@ -13,6 +13,8 @@ class ArticleCategory(models.Model):
     def get_absolute_url(self):
         return reverse('wiki:articles')
 
+    def __str__(self):
+        return f'{self.name}'
 
 class Article(models.Model):
     title = models.CharField(max_length=255)
@@ -27,3 +29,6 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('wiki:article', args=[self.pk])
+    
+    def __str__(self):
+        return f'{self.title}'
