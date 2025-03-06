@@ -18,7 +18,11 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
+<<<<<<< HEAD
 
     path('merchstore', include('merchstore.urls', namespace='merchstore')),
+=======
+    path('', include('home.urls', namespace='home')),
+>>>>>>> parent of 268ef9f (Added a path to the merchstore app)
     path('admin/', admin.site.urls),
 ]
