@@ -12,6 +12,7 @@ class PostCategory(models.Model):
     def __str__(self):
         return self.name
 
+
 class Post(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(PostCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
