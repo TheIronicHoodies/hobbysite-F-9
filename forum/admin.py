@@ -13,3 +13,4 @@ class PostAdmin(admin.ModelAdmin):
     ordering = ("-created_on",)  
 
 admin.site.register(PostCategory, PostCategoryAdmin)
+admin.site.register(Post, PostAdmin)
