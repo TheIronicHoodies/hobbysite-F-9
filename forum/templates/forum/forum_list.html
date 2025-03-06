@@ -6,7 +6,7 @@
     <h1>Forum Threads</h1>
     <ul>
         {% for post in posts %}
-            <li><a href="/thread/{{ post.id }}/">{{ post.title }}</a></li>
+            <li><a href="/forum/thread/{{ post.id }}/">{{ post.title }}</a></li>
         {% empty %}
             <li>No threads found.</li>
         {% endfor %}
