@@ -23,9 +23,6 @@ urlpatterns = [
     path('merchstore', include('merchstore.urls', namespace='merchstore')),
 =======
     path('', include('home.urls', namespace='home')),
-<<<<<<< HEAD
->>>>>>> parent of 268ef9f (Added a path to the merchstore app)
-=======
 >>>>>>> parent of 268ef9f (Added a path to the merchstore app)
     path('admin/', admin.site.urls),
 ]
