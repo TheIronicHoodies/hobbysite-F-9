@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Available Commissions:</h1>
+    <ul>
+        {% for commission in commissions %}
+        <li>{{commission.title}}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
