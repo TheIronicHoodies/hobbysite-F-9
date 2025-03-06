@@ -1,12 +1,12 @@
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+from django.views.generic import ListView, DetailView
 from .models import Post
 
-def forum_list(request):
-    posts = Post.objects.all()
-    return render(request, "forum/forum_list.html", {"posts": posts})
+class PostListView(ListView):
+    model = Post
+    template_name = 'forum_list.html'
+    context_object_name = 'posts'  # Allows template to use `posts` instead of `object_list`
 
-def forum_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, "forum/forum_detail.html", {"post": post})
-
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'forum_detail.html'
+    context_object_name = 'post'  # Allows template to use `post` instead of `object`
