@@ -20,6 +20,7 @@ class Product(models.Model):
     productType = models.ForeignKey (
         ProductType,
         on_delete=models.SET_NULL,
+        null=True,
         related_name='product'
     )
     description = models.TextField()
