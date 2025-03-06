@@ -3,9 +3,9 @@
 {% block title %}Commissions{% endblock %}
 
 {% block content %}
-    <h1>{{commission.title}}</h1>
-    <h2>Created on: {{commission.created_on}}</h2>
-    <h2>Last updated: {{commission.last_updated}}</h2>
-    <p>People required: {{commission.people_required}}</p>
-    <p>{{commission.detail}}</p>
+    <h1>{{object.title}}</h1>
+    <h2>Created on: {{object.created_on}}</h2>
+    <h2>Last updated: {{object.last_updated}}</h2>
+    <p>People required: {{object.people_required}}</p>
+    <h1>{{object.entry}}</h1>
 {% endblock %}
