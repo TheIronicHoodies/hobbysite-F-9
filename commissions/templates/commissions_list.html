@@ -4,7 +4,7 @@
     <h1>Available Commissions:</h1>
     <ul>
         {% for commission in commissions %}
-        <li>{{commission.title}}</li>
+        <li><a href="{{commission.get_absolute.url}}"></a>{{commission.title}}</li>
         {% endfor %}
     </ul>
 {% endblock %}
