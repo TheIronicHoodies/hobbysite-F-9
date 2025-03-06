@@ -1,16 +1,16 @@
 from django.contrib import admin
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from django.contrib.auth.models import User
+from .models import Commission, Comment
 
 # Register your models here.
-from .models import Profile
+class CommentInline(admin.TabularInline):
+    model = Comment
+    
+class CommissionAdmin(admin.ModelAdmin):
+    model = Commission
+    inlines = [CommentInline,]
 
-class ProfileInline(admin.TabularInline):
-    model = Profile
-    can_delete = False
+class CommentAdmin(admin.ModelAdmin):
+    model = Comment
 
-class UserAdmin(BaseUserAdmin):
-    inlines = [ProfileInline,]
-
-admin.site.unregister(User)
-admin.site.register(User, UserAdmin)
+admin.site.register(Commission, CommissionAdmin)
+admin.site.register(Comment, CommentAdmin)

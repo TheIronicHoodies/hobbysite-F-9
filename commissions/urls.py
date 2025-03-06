@@ -1,10 +1,9 @@
 from django.urls import path
-from .views import index, task_list, task_detail
+from .views import CommissionsDetail, CommissionsList
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('task-list', task_list, name='task-list'),
-    path('task/<int:pk>', task_detail, name='task-detail')
+    path('commissions/list', CommissionsList.as_view(), name='commissions-list'),
+    path('commissions/detail/<int:pk>', CommissionsDetail.as_view(), name='commissions-detail')
 ]
 
-app_name = 'home'
+app_name = 'commissions'
