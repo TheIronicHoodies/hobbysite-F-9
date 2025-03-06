@@ -4,6 +4,48 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Title{% endblock %}</title>
+        <style>
+            * {
+                box-sizing: border-box;
+                font-size: 1rem;
+            }
+            body {
+                background-color: #1C2E4A;
+                color: #BDC4D4;
+                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+                padding: 1em;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1rem;
+                font-style: italic;
+            }
+
+            header {
+                border-bottom: 1px solid white;
+            }
+
+            div {
+                background-color: #BDC4D4;
+                border-radius: 1em;
+                color: #1C2E4A;
+                padding: 1em;
+                width: 75%;
+            }
+
+            section h1 {
+                margin-top: 1rem;
+            }
+
+            a, a:visited {
+                color: #0bf;
+                text-decoration: none;
+            }
+        </style>
     </head>
     <body>
         {% block content %}

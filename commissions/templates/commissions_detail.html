@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Commissions{% endblock %}
+{% block title %}{{commission.title}}{% endblock %}
 
 {% block content %}
-    <h1>{{commission.title}}</h1>
-    <h2>Created on: {{commission.created_on}}</h2>
-    <h2>Last updated: {{commission.last_updated}}</h2>
-    <p>People required: {{commission.people_required}}</p>
-    <p>{{commission.detail}}</p>
+    <header>
+        <h1>{{commission.title}}</h1>
+        <h2>Created on: {{commission.created_on}}</h2>
+        <h2>Last updated: {{commission.last_updated}}</h2>
+        <p>People required: {{commission.people_required}}</p>
+    </header>
+    
+    <p>{{commission.description}}</p>
+
+    <section>
+        <h1>Comments</h1>
+        {% for comment in commission.comments.all%}
+        <div>
+            {{comment.entry}}
+        </div>
+        {% endfor %}
+    </section>
 {% endblock %}
