@@ -2,8 +2,8 @@
 
 {% block title %}Article List{% endblock %}
 {% block content %}
-    {% for article in object_list %}
-        <ul><a href= "{{ article.get_absolute_url }}">{{ article.title }}</a></ul>
+    {% for article in article_list %}
+        <ul>{{ article.category }}: <a href= "{{ article.get_absolute_url }}">{{ article.title }}</a></ul>
     {% endfor %}
 {% endblock %}
 
