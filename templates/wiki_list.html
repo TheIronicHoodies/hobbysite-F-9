@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1> List of Articles </h1>
+    {% for object in object_list%}
+    <h2>Category: {{object.name}}</h2>
+    <p>Description: {{object.description}}</p>
+    <p>Related Articles:</p>
+        {% for article in object.articles.all %}
+        <li><a href='{{article.get_absolute_url}}'>{{article.title}}</a></li>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
