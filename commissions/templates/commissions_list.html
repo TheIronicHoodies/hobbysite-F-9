@@ -5,9 +5,9 @@
 
 {% block content %}
     <h1>Available Commissions:</h1>
-    <ul>
+    <section class="commissions_list">
         {% for commission in object_list %}
-        <li><a href="{{commission.get_absolute.url}}">{{commission}}</a></li>
+        <a href="{{commission.get_absolute_url}}">{{commission}}</a>
         {% endfor %}
-    </ul>
+    </section>
 {% endblock %}
