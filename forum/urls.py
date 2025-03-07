@@ -1,3 +1,5 @@
+"""Sets paths to forum's list and detail view."""
+
 from django.urls import path
 from .views import PostListView, PostDetailView
 
