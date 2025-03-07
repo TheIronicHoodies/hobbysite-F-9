@@ -16,7 +16,7 @@
     <section>
         <h1>Comments</h1>
         {% for comment in commission.comments.all%}
-        <div>
+        <div class="comment">
             {{comment.entry}}
         </div>
         {% endfor %}

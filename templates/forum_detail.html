@@ -4,8 +4,8 @@
 
 {% block content %}
     <h1>{{ post.title }}</h1>
-    <p><strong>Category:</strong> {{ post.category.name }}</p>
-    <p><strong>Posted on:</strong> {{ post.created_on }}</p>
+    <p class="strong">Category: {{ post.category.name }}</p>
+    <p class="strong">Posted on: {{ post.created_on }}</p>
     <p>{{ post.entry }}</p>
     <a href="{% url 'forum:thread-list' %}">Back to Threads</a>
 {% endblock %}
