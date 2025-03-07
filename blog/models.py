@@ -4,6 +4,10 @@ from django.urls import reverse
 # Create your models here.
 
 class ArticleCategory(models.Model):
+    """
+        This creates an ArticleCategory model which orders categories in alphebetic order (ascending)
+    """
+    
     name = models.CharField(max_length = 255)
     # creates field for ArticleCategory name    
 
@@ -21,6 +25,9 @@ class ArticleCategory(models.Model):
         return reverse('blog:category_detail', args=[str(self.pk)])
 
 class Article(models.Model):
+    """
+        This creates the Article model, which has a title, category, entry text, and created and updated on dates
+    """
     title = models.CharField(max_length = 255)
     category = models.ForeignKey(
         ArticleCategory,
