@@ -18,7 +18,7 @@ class ArticleCategory(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('articlecategory', args=[str(self.pk)])
+        return reverse('blog:category_detail', args=[str(self.pk)])
 
 class Article(models.Model):
     title = models.CharField(max_length = 255)
@@ -39,5 +39,5 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('article', args=[str(self.pk)])
+        return reverse('blog:article_detail', args=[str(self.pk)])
     
