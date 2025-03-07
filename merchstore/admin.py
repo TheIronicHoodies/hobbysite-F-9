@@ -1,11 +1,19 @@
+"""Creates an admin panel for the merchstore app."""
+
 from django.contrib import admin
 from .models import Product, ProductType
-# Register your models here.
+
 
 class ProductInLine(admin.TabularInline):
+    """Creates an admin interface managing Product models."""
+
     model = Product
 
+
 class ProductTypeAdmin(admin.ModelAdmin):
-    inlines = [ProductInLine,]
+    """Adds a table for all related Product objects."""
+
+    inlines = [ProductInLine, ]
+
 
 admin.site.register(ProductType, ProductTypeAdmin)
