@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}Title{% endblock %}</title>
+        <title>Login</title>
         <style>
             * {
                 box-sizing: border-box;
@@ -49,17 +49,15 @@
                 margin-left: 1em;
             }
         </style>
-        {% block style %}{% endblock %}
     </head>
     <body>
         <header>
             <span>Recipe Book</span>
-            <form class="logout" method="POST" action="{% url 'logout' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Logout</button>
-            </form>
         </header>
-        {% block content %}{% endblock %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
     </body>
 </html>

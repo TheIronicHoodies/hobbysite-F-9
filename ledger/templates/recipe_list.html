@@ -4,6 +4,7 @@
 {% block title %}Recipe List{% endblock %}
 
 {% block content %}
+    <h1>Recipe List</h1>
     <section>
         {% for recipe in object_list %}
         <a href="{{recipe.get_absolute_url}}">{{recipe}}</a>
