@@ -4,6 +4,10 @@ from django.urls import reverse
 # Create your models here.
 
 class ArticleCategory(models.Model):
+    """
+        This creates an ArticleCategory model which orders categories in alphebetic order (ascending)
+    """
+    
     name = models.CharField(max_length = 255)
     # creates field for ArticleCategory name    
 
@@ -18,9 +22,12 @@ class ArticleCategory(models.Model):
         return self.name
     
     def get_absolute_url(self):
-        return reverse('articlecategory', args=[str(self.pk)])
+        return reverse('blog:category_detail', args=[str(self.pk)])
 
 class Article(models.Model):
+    """
+        This creates the Article model, which has a title, category, entry text, and created and updated on dates
+    """
     title = models.CharField(max_length = 255)
     category = models.ForeignKey(
         ArticleCategory,
@@ -39,5 +46,5 @@ class Article(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('article', args=[str(self.pk)])
+        return reverse('blog:article_detail', args=[str(self.pk)])
     
