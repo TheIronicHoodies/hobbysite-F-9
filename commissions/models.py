@@ -3,6 +3,7 @@ from django.urls import reverse
 
 class Commission(models.Model):
     title = models.CharField(max_length=255)
+    # author = models.ForeignKey(pass)
     description = models.TextField(blank=False)
     people_required = models.IntegerField(null=False)
     created_on = models.DateTimeField(auto_now_add=True)
