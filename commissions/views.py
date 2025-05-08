@@ -14,10 +14,10 @@ class CommissionsDetail(DetailView):
 
 class CommissionsCreate(CreateView):
     model = Commission
-    form_class = pass
-    template_name = pass
+    # form_class = pass
+    # template_name = pass
 
 class CommissionsUpdate(UpdateView):
     model = Commission
-    form_class = pass
-    template_name = pass
+    # form_class = pass
+    # template_name = pass
