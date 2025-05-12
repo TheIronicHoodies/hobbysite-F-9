@@ -4,7 +4,18 @@
     <h1>{{ object.name }}</h1>
     <ul>
         <li>
-        {{ object.name }} ({{ object.description }}): {{ object.price }}
+        {{ object.name }} ({{ object.description }}): {{ object.price }} ({{ object.stock }} in stock)
         </li>
     </ul>
+
+    {% if object.owner != user.profile %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <button type="submit">Buy</button>
+    {% endif %}
+
+    {% if object.owner == user.profile %}
+        <button><a href="{% url 'merchstore:product-update' pk=object.pk %}">Update Product</a></button>
+    {% endif %}
 {% endblock %}
