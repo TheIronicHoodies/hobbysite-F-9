@@ -1,16 +1,39 @@
 {% extends "base.html" %}
 
-{% block title %}Forum Posts{% endblock %}
+{% block title %}Forum Threads{% endblock %}
 
 {% block content %}
+<h1>All Threads</h1>
 
-    <h2>Forums</h2>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+    <a href="{% url 'forum:add_thread' %}"> Create a new thread</a>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> </p>
+{% endif %}
+
+
+
+{% if user_threads %}
+    <h2>Threads</h2>
     <ul>
-        {% for post in posts %}
-            <li><a href="/forum/thread/{{ post.id }}/">{{ post.title }}</a> (Category: {{ post.category.name }})</li>
-        {% empty %}
-            <li>No threads found.</li>
+        {% for thread in user_threads %}
+            <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
         {% endfor %}
     </ul>
-    
+    <hr>
+{% endif %}
+
+<h2>All Threads</h2>
+{% for category in categories %}
+    <h3>{{ category.name }}</h3>
+    <ul>
+        {% for thread in other_threads %}
+            {% if thread.category == category %}
+                <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endfor %}
+
 {% endblock %}

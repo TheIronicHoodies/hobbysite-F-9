@@ -55,7 +55,7 @@ def add_thread(request):
 
 
 @login_required
-def edit_thread(request, pk):
+def update_thread(request, pk):
     thread = Thread.objects.filter(pk=pk).first()
 
     if thread.author != request.user.profile:
