@@ -21,9 +21,9 @@ class ArticleCategory(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(ArticleCategory, on_delete=models.SET_NULL, null=True, related_name='articles',)
-    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True) #we will work this out
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     entry = models.TextField()
-    header_image = models.ImageField(null=True, upload_to='images/') #not too much of an issue
+    header_image = models.ImageField(null=True, upload_to='images/')
     created_on = models.DateTimeField(auto_now_add=True, null=False)
     updated_on = models.DateTimeField(auto_now=True)
     
@@ -39,7 +39,7 @@ class Article(models.Model):
     
     
 class Comment(models.Model):
-    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True) #we will work this out
+    author = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, null=True, related_name='comments',)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True, null=False)
