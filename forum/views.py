@@ -39,6 +39,34 @@ def thread_detail(request, pk):
 
 @login_required
 def add_thread(request):
+    if request.method == "POST":
+        form = ThreadForm(request.POST)
+
+        if form.is_valid():
+            thread = form.save(commit=False)
+            thread.author = request.user.profile
+            thread.save()
+            return redirect("forum:thread_detail", pk=thread.pk)
+        
+    else:
+        form = ThreadForm()
+
+    return render(request, "forum/add_thread.html", {"form": form})
+
 
 @login_required
 def edit_thread(request, pk):
+    thread = Thread.objects.filter(pk=pk).first()
+
+    if thread.author != request.user.profile:
+        return redirect("forum:thread_detail", pk=pk)
+
+    if request.method == "POST":
+        form = ThreadForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("forum:thread_detail", pk=pk)
+    else:
+        form = ThreadForm(instance=thread)
+
+    return render(request, "forum/add_thread.html", {"form": form})
