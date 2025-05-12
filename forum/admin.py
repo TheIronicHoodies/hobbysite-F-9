@@ -1,16 +1,16 @@
 from django.contrib import admin
-from .models import PostCategory, Post
+from .models import ThreadCategory, Thread
 
-class PostCategoryAdmin(admin.ModelAdmin):
+class ThreadCategoryAdmin(admin.ModelAdmin):
     search_fields = ("name",)  
     list_display = ("name", "description")  
     ordering = ("name",) 
 
-class PostAdmin(admin.ModelAdmin):
+class ThreadAdmin(admin.ModelAdmin):
     search_fields = ("title", "entry") 
     list_display = ("title", "category", "created_on", "updated_on")  
     list_filter = ("category",)  
     ordering = ("-created_on",)  
 
-admin.site.register(PostCategory, PostCategoryAdmin)
-admin.site.register(Post, PostAdmin)
+admin.site.register(Thread, ThreadCategoryAdmin)
+admin.site.register(Thread, ThreadAdmin)
