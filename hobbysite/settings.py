@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'commissions',
     'merchstore',
+    'user_management',
 ]
 
 MIDDLEWARE = [
