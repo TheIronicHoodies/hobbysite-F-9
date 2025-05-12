@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
-{% block title %}{{article.name}}{% endblock%}
+{% block title %}{{object.title}}{%endblock%}
 
 {% block content %}
-<h1> {{object.title}} </h1>
-<p> {{object.entry}} </p>
+<img style='max-height:450px; max-width:450px;' src='{{ article.header_image.url }}'>
+<h1> {{article.title}} </h1>
+{% if article.author.user == request.user %}
+    <p><a href = {% url 'wiki:update' pk=object.pk%}> Update page </a></p>
+{% endif %}
+<h2>By: {{ article.author.name }} </h2>
+<p> {{article.entry}} </p>
 <br>
-<p>Created on: {{object.created_on}}</p>
-<p>Last updated: {{object.updated_on}}</p>
+<p>Created on: {{article.created_on}}</p>
+<p>Last updated: {{article.updated_on}}</p>
+
+{% if request.user.is_authenticated %}
+<form method='post'>
+    {% csrf_token %}
+    {{form}}
+    <input type='submit', value='Comment'>
+</form>
+{% endif %}
+
+{% for comment in article.comments.all.reverse %}
+<b>{{ comment.author.name }} says:</b>
+<p>{{ comment.entry }}</p>
+{% endfor %}
 
 {% endblock %}
