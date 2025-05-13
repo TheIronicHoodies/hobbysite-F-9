@@ -1,11 +1,22 @@
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
+
+cascade = models.CASCADE
 
 class Commission(models.Model):
     title = models.CharField(max_length=255)
-    # author = models.ForeignKey(pass)
+    author = models.ForeignKey(Profile, on_delete=cascade, null=True)
     description = models.TextField(blank=False)
-    people_required = models.IntegerField(null=False)
+
+    STATUS_CHOICES = (
+        ('OPEN', 'Open'),
+        ('FULL', 'Full'),
+        ('COMPLETED', 'Completed'),
+        ('DISCONTINUED', 'Discontinued'),
+    )
+
+    status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
     created_on = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -16,12 +27,43 @@ class Commission(models.Model):
 
     def __str__(self):
         return str(self.title)
-    
-    def get_absolute_url(self):
-        return reverse('commissions:commissions-detail', args=[str(self.id)])
+
+
+class Job(models.Model):
+    commission = models.ForeignKey(Commission, on_delete=cascade)
+    role = models.CharField(max_length=255)
+    manpower_required = models.IntegerField(null=False)
+
+    STATUS_CHOICES = (
+        ('OPEN', 'Open'),
+        ('FULL', 'Full'),
+    )
+
+    status = models.CharField(max_length=4, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+
+    class Meta:
+        ordering = ['status', '-manpower_required', 'role']
+
+
+class JobApplication(models.Model):
+    job = models.ForeignKey(Job, on_delete=cascade)
+    applicant = models.ForeignKey(Profile, on_delete=cascade)
+
+    STATUS_CHOICES = (
+        ('PENDING', 'Pending'),
+        ('ACCEPTED', 'Accepted'),
+        ('REJECTED', 'Rejected')
+    )
+
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+    applied_on = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['status', '-applied_on']
+
 
 class Comment(models.Model):
-    commission = models.ForeignKey(Commission, null=False, on_delete=models.CASCADE, related_name='comments')
+    commission = models.ForeignKey(Commission, null=False, on_delete=cascade, related_name='comments')
     entry = models.TextField(blank=False)
     created_on = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
