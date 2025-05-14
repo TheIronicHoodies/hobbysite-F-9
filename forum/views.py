@@ -1,72 +1,87 @@
-from .models import Post
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
+from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView 
+from django.urls import reverse
+from django.utils import timezone
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Thread, ThreadCategory, Comment
 from .forms import ThreadForm, CommentForm
 
-def thread_list(request):
-    categories = ThreadCategory.objects.all()
+class ThreadListView(ListView):
+    model = Thread
+    template_name = "forum/thread_list.html"
+    context_object_name = "other_threads"
 
     user_threads = []
     other_threads = Thread.objects.all()
 
-    if request.user.is_authenticated:
-        user_threads = Thread.objects.filter(author=request.user.profile)
-        other_threads = other_threads.exclude(author=request.user.profile)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = ThreadCategory.objects.all()
 
-    return render(request, "forum/thread_list.html", {"categories": categories, "user_threads": user_threads, "other_threads": other_threads})
+        if self.request.user.is_authenticated:
+            context["user_threads"] = Thread.objects.filter(author=self.request.user.profile)
+            context["other_threads"] = Thread.objects.exclude(author=self.request.user.profile)
+        else:
+            context["user_threads"] = []
 
-
-def thread_detail(request, pk):
-    thread = get_object_or_404(Thread, pk=pk).first()
-    comments = Comment.objects.filter(thread=thread)
-
-    related_threads = Thread.objects.filter(category=thread.category).exclude(pk=pk)[:2]
-
-    if request.method == "POST":
-        comment_form = CommentForm(request.POST)
-        if comment_form.is_valid():
-            comment = comment_form.save(commit=False)
-            comment.author = request.user.profile
-            comment.thread = thread
-            comment.created_on = timezone.now()
-            comment.save()
-            return redirect("forum:thread_detail", pk=thread.pk)
-    else:
-        comment_form = CommentForm()
-
-    return render(request, "forum/thread_detail.html", {"thread": thread, "comments": comments, "related_threads": related_threads, "comment_form": comment_form})
-
-@login_required
-def add_thread(request):
-    if request.method == "POST":
-        form = ThreadForm(request.POST)
-
-        if form.is_valid():
-            thread = form.save(commit=False)
-            thread.author = request.user.profile
-            thread.save()
-            return redirect("forum:thread_detail", pk=thread.pk)
-        
-    else:
-        form = ThreadForm()
-
-    return render(request, "forum/add_thread.html", {"form": form})
+        return context
 
 
-@login_required
-def update_thread(request, pk):
-    thread = Thread.objects.filter(pk=pk).first()
+class ThreadDetailView(DetailView):
+    model = Thread
+    template_name = "forum/thread_detail.html"
+    context_object_name = "thread"
 
-    if thread.author != request.user.profile:
-        return redirect("forum:thread_detail", pk=pk)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        thread = self.get_object()
 
-    if request.method == "POST":
-        form = ThreadForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("forum:thread_detail", pk=pk)
-    else:
-        form = ThreadForm(instance=thread)
+        context["comments"] = Comment.objects.filter(thread=thread)
+        context["related_threads"] = Thread.objects.filter(category=thread.category).exclude(pk=thread.pk)[:2]
 
-    return render(request, "forum/add_thread.html", {"form": form})
+        if self.request.method == "POST":
+            comment_form = CommentForm(self.request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.author = self.request.user.profile
+                comment.thread = thread
+                comment.created_on = timezone.now()
+                comment.save()
+                return redirect("forum:thread_detail", pk=thread.pk)
+        else:
+            comment_form = CommentForm()
+
+        context["comment_form"] = comment_form
+        return context
+
+
+class ThreadCreateView(CreateView):
+    model = Thread
+    form_class = ThreadForm
+    template_name = "forum/add_thread.html"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user.profile
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})
+
+
+
+class UpdateThreadView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Thread
+    form_class = ThreadForm
+    template_name = "forum/add_thread.html"
+
+    def form_valid(self, form):
+        return super().form_valid(form)
+
+    def test_func(self):
+        thread = self.get_object()
+        return self.request.user.profile == thread.author
+
+    def get_success_url(self):
+        return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})
