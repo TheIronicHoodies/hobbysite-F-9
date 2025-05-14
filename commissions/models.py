@@ -4,19 +4,29 @@ from user_management.models import Profile
 
 cascade = models.CASCADE
 
+STATUS_CHOICES_COMMISSION = {
+    'OPEN': 'Open',
+    'FULL': 'Full',
+    'COMPLETED': 'Completed',
+    'DISCONTINUED': 'Discontinued',
+}
+
+STATUS_CHOICES_JOB = {
+    'OPEN': 'Open',
+    'FULL': 'Full',
+}
+
+STATUS_CHOICES_JOBAPPLICATION = {
+    'PENDING': 'Pending',
+    'ACCEPTED': 'Accepted',
+    'REJECTED': 'Rejected',
+}
+
 class Commission(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Profile, on_delete=cascade, null=True)
     description = models.TextField(blank=False)
-
-    STATUS_CHOICES = (
-        ('OPEN', 'Open'),
-        ('FULL', 'Full'),
-        ('COMPLETED', 'Completed'),
-        ('DISCONTINUED', 'Discontinued'),
-    )
-
-    status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+    status = models.CharField(max_length=12, choices=STATUS_CHOICES_COMMISSION, default=list(STATUS_CHOICES_COMMISSION)[0])
     created_on = models.DateTimeField(auto_now_add=True)
     last_updated = models.DateTimeField(auto_now=True)
 
@@ -33,18 +43,12 @@ class Job(models.Model):
     commission = models.ForeignKey(Commission, on_delete=cascade)
     role = models.CharField(max_length=255)
     manpower_required = models.IntegerField(null=False)
-
-    STATUS_CHOICES = (
-        ('OPEN', 'Open'),
-        ('FULL', 'Full'),
-    )
-
-    status = models.CharField(max_length=4, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+    status = models.CharField(max_length=4, choices=STATUS_CHOICES_JOB, default=list(STATUS_CHOICES_JOB)[0])
 
     class Meta:
         ordering = ['status', '-manpower_required', 'role']
 
-    def get_manpower(self):
+    def current_manpower(self):
         return self.job_application.filter(status='ACCEPTED').count()
 
 
@@ -52,13 +56,7 @@ class JobApplication(models.Model):
     job = models.ForeignKey(Job, on_delete=cascade, related_name='job_application')
     applicant = models.ForeignKey(Profile, on_delete=cascade)
 
-    STATUS_CHOICES = (
-        ('PENDING', 'Pending'),
-        ('ACCEPTED', 'Accepted'),
-        ('REJECTED', 'Rejected')
-    )
-
-    status = models.CharField(max_length=8, choices=STATUS_CHOICES, default=STATUS_CHOICES[0][0])
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES_JOBAPPLICATION, default=list(STATUS_CHOICES_JOBAPPLICATION)[0])
     applied_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
