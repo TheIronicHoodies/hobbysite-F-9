@@ -8,9 +8,12 @@
         <h1>{{commission.title}}</h1>
         <h2>Created on: {{commission.created_on}}</h2>
         <h2>Last updated: {{commission.last_updated}}</h2>
-        <p>People required: {{commission.manpower_required}}</p>
-        <p>Available jobs left: {{commission.manpower_required - }}</p>
+        
     </header>
+
+    {% for job in commission %}
+        <p>People required: {{job.manpower_required}}</p>
+        <p>Slots left: {{job.manpower_left}}</p>
     
     <p>{{commission.description}}</p>
 

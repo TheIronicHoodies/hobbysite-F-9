@@ -48,8 +48,9 @@ class Job(models.Model):
     class Meta:
         ordering = ['status', '-manpower_required', 'role']
 
-    def current_manpower(self):
-        return self.job_application.filter(status='ACCEPTED').count()
+    def manpower_left(self):
+        filled = JobApplication.objects.filter(job=self.id, status='ACCEPTED').count()
+        return self.manpower_required - filled
 
 
 class JobApplication(models.Model):
