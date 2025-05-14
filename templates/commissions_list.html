@@ -38,6 +38,6 @@
             <p>Created on: {{commission.created_on}}</p>
         </div>
         {% endfor %}
-        <a href="{{}}">Create a new commission...</a>
+        <a href="{% url 'commissions:commissions-add' %}">Create a new commission...</a>
     </section>
 {% endblock %}
