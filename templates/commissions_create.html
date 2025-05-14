@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{commission.title}}{% endblock %}
+
+{% block content %}
+    <header>
+        <h1>Add a new Commission...</h1>
+    </header>
+    <section>
+        <form action="POST">
+            {%csrf_token%}
+            {{form.as_p}}
+            {{add_job_form.as_p}}
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+{% endblock %}

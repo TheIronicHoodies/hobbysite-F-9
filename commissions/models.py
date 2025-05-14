@@ -44,9 +44,12 @@ class Job(models.Model):
     class Meta:
         ordering = ['status', '-manpower_required', 'role']
 
+    def get_manpower(self):
+        return self.job_application.filter(status='ACCEPTED').count()
+
 
 class JobApplication(models.Model):
-    job = models.ForeignKey(Job, on_delete=cascade)
+    job = models.ForeignKey(Job, on_delete=cascade, related_name='job_application')
     applicant = models.ForeignKey(Profile, on_delete=cascade)
 
     STATUS_CHOICES = (
