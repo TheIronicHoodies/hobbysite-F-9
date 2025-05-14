@@ -71,7 +71,7 @@ class ThreadCreateView(CreateView):
 
 
 
-class UpdateThreadView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ThreadUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Thread
     form_class = ThreadForm
     template_name = "forum/add_thread.html"
