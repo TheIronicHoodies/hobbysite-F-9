@@ -23,10 +23,10 @@ class CommissionsDetail(DetailView):
 
 class CommissionsCreate(CreateView, LoginRequiredMixin):
     model = Commission
-    # form_class = pass
-    # template_name = pass
+    form_class = CommissionForm
+    template_name = 'commissions_create.html'
 
 class CommissionsUpdate(UpdateView, LoginRequiredMixin):
     model = Commission
-    # form_class = pass
-    # template_name = pass
+    form_class = CommissionUpdateForm
+    template_name = 'commissions_update.html'
