@@ -41,21 +41,25 @@ class ThreadDetailView(DetailView):
         context["comments"] = Comment.objects.filter(thread=thread)
         context["related_threads"] = Thread.objects.filter(category=thread.category).exclude(pk=thread.pk)[:2]
 
-        if self.request.method == "POST":
-            comment_form = CommentForm(self.request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.author = self.request.user.profile
-                comment.thread = thread
-                comment.created_on = timezone.now()
-                comment.save()
-                return redirect("forum:thread_detail", pk=thread.pk)
-        else:
-            comment_form = CommentForm()
-
-        context["comment_form"] = comment_form
+        context["comment_form"] = kwargs.get("comment_form", CommentForm())
         return context
 
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+
+        self.object = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.thread = self.object
+            comment.author = request.user.profile 
+            comment.created_on = timezone.now()
+            comment.save()
+            return redirect("forum:thread_detail", pk=self.object.pk)
+        else:
+            context = self.get_context_data(comment_form=form)
+            return self.render_to_response(context)
 
 class ThreadCreateView(CreateView):
     model = Thread
@@ -67,7 +71,7 @@ class ThreadCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})
+        return redirect("forum:thread_detail", pk=self.object.pk)
 
 
 
