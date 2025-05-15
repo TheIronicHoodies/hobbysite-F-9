@@ -92,4 +92,4 @@ class Transaction(models.Model):
         max_length=10,
         choices=STATUS_CHOICES,
     )
-    CreatedOn = models.DateField(auto_created=True)
+    CreatedOn = models.DateTimeField(auto_now_add=True)
