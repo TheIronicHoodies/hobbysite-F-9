@@ -105,3 +105,11 @@ class TransactionsListView(ListView):
     model = Transaction
     template_name = 'transactions.html'
     context_object_name = 'transactions'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+    
+        product_types = ProductType.objects.all()
+        
+        context['type_list'] = product_types
+        return context
