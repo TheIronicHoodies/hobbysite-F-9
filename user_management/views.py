@@ -9,7 +9,7 @@ class ProfileUpdate(UpdateView):
     form_class = ProfileUpdateForm
     template_name = "profile_update.html"
 
-    def get_object(self,):
+    def get_object(self):
         return self.request.user.profile
 
     def form_valid(self, form):

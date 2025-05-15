@@ -2,6 +2,8 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy
 from .forms import *
 from .models import Commission, Job
 
@@ -26,7 +28,19 @@ class CommissionsCreate(CreateView, LoginRequiredMixin):
     form_class = CommissionForm
     template_name = 'commissions_create.html'
 
+    def form_valid(self, form):
+        commission = form.save(commit=False)
+        commission.creator = self.request.user.profile
+        commission.save()
+        return super().form_valid(form)
+
 class CommissionsUpdate(UpdateView, LoginRequiredMixin):
     model = Commission
     form_class = CommissionUpdateForm
     template_name = 'commissions_update.html'
+    
+    def get(self, request, *args, **kwargs):
+        affected_commission = get_object_or_404(Commission, pk=self.kwargs["pk"])
+        if request.user.profile != affected_commission.author:
+            return redirect(reverse_lazy("commissions:commission_list"))
+        return super().get(request, *args, **kwargs)

@@ -9,7 +9,7 @@
         <button type="submit">Logout</button>
     </form>
     {% endif %}
-    <p><a href={% url 'wiki:create' %}>Create article</a></p>
+    <p><a href="{% url 'wiki:create' %}">Create article</a></p>
     {% for object in object_list %}
         {% for article in object.articles.all %}
             {% if article.author.user == request.user %}

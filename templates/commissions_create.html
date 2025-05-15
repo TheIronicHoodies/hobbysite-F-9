@@ -9,8 +9,8 @@
         <label for="commission-make">{{commission.author}}</label>
         <form action="POST" id="commission-make">
             {%csrf_token%}
-            {{form.as_p}}
-            {{add_job_form.as_p}}
+            {{form}}
+            <!-- {{add_job_form.as_p}} -->
             <button type="submit">Submit</button>
         </form>
     </section>
