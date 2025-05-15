@@ -13,7 +13,7 @@ class ThreadAdmin(admin.ModelAdmin):
     ordering = ("-created_on",)  
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ("thread", "author", "created_on")
+    list_display = ("post", "author", "created_on")
     list_filter = ("created_on",)
     search_fields = ("entry",)
 
