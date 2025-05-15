@@ -9,10 +9,10 @@
     <h2>Last updated: {{commission.last_updated}}</h2>
 
     {% if commission.author == request.user.profile %}
-        <a href="{% url 'commissions:commissions-update' %}">Update this commission</a>
+        <a href="{% url 'commissions:commissions-edit' pk=commission.pk %}">Update this commission</a>
     {% endif %}
 
-    {% for job in commission %}
+    {% for job in commission.jobs.all %}
         <p>People required: {{job.manpower_required}}</p>
         <p>Slots left: {{job.manpower_left}}</p>
         <form action="POST">
@@ -24,7 +24,9 @@
             <input type="submit" value="Apply to Job" disabled>
         </form>
         {% endif %}
+    {% endfor %}
     <p>{{commission.description}}</p>
+    
 
     <section>
         <h1>Comments</h1>
