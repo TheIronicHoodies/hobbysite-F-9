@@ -1,13 +1,34 @@
 {% extends 'base.html' %}
-
+{% block title %}Wiki Articles{% endblock %} 
 {% block content %}
+    <h1> User Articles </h1>
+    {% if request.user.is_authenticated %}
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Logout</button>
+    </form>
+    {% endif %}
+    <p><a href={% url 'wiki:create' %}>Create article</a></p>
+    {% for object in object_list %}
+        {% for article in object.articles.all %}
+            {% if article.author.user == request.user %}
+                <li><a href='{{article.get_absolute_url}}'>{{article.title}}</a></li>
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+
     <h1> List of Articles </h1>
+    
+
     {% for object in object_list%}
     <h2>Category: {{object.name}}</h2>
     <p>Description: {{object.description}}</p>
     <p>Related Articles:</p>
         {% for article in object.articles.all %}
-        <li><a href='{{article.get_absolute_url}}'>{{article.title}}</a></li>
+            {% if article.author.user != request.user %}
+                <li><a href='{{article.get_absolute_url}}'>{{article.title}}</a></li>
+            {% endif %}
         {% endfor %}
     {% endfor %}
 {% endblock %}
