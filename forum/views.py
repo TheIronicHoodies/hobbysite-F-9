@@ -71,7 +71,7 @@ class ThreadCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return redirect("forum:thread_detail", pk=self.object.pk)
+        return reverse("forum:thread_detail", kwargs={"pk": self.object.pk})
 
 
 
