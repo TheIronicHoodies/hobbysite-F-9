@@ -39,11 +39,11 @@ class Commission(models.Model):
         return str(self.title)
     
     def get_absolute_url(self):
-        return reverse('commissions:commission', args=[str(self.pk)])
+        return reverse('commissions:commissions-detail', args=[self.pk])
 
 
 class Job(models.Model):
-    commission = models.ForeignKey(Commission, on_delete=cascade)
+    commission = models.ForeignKey(Commission, on_delete=cascade, related_name='jobs')
     role = models.CharField(max_length=255)
     manpower_required = models.IntegerField(null=False)
     status = models.CharField(max_length=4, choices=STATUS_CHOICES_JOB, default=list(STATUS_CHOICES_JOB)[0])
