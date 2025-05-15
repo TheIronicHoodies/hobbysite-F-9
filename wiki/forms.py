@@ -1,5 +1,6 @@
 from django import forms
-from .models import Article, Comment
+from .models import Article, Comment, ImageGallery
+
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -15,3 +16,9 @@ class CommentForm(forms.ModelForm):
         fields = ('entry',)
         widgets = { 'created_on': forms.TextInput(attrs={ 'type' : 'datetime-local'}),
                    'updated_on': forms.TextInput(attrs={'type' : 'datetime-local'})}
+
+
+class imageGalleryForm(forms.ModelForm):
+    class Meta:
+        model = ImageGallery
+        fields = '__all__'

@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
-from .models import Article, ArticleCategory, Comment
-from .forms import ArticleForm, CommentForm
+from .models import Article, ArticleCategory, Comment, ImageGallery
+from .forms import ArticleForm, CommentForm, imageGalleryForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
 
@@ -41,4 +41,11 @@ class ArticleUpdateView(LoginRequiredMixin, UpdateView):
     model = Article
     template_name = 'wiki_update.html'
     form_class = ArticleForm
+    redirect_field_name = 'login.html' #redirects to login
+
+
+class ImageCreateView(LoginRequiredMixin, CreateView):
+    model = ImageGallery
+    template_name = 'wiki_image.html'
+    form_class = imageGalleryForm
     redirect_field_name = 'login.html' #redirects to login
