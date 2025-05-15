@@ -57,6 +57,11 @@
         </style>
     </head>
     <body>
+        <header>
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'accounts:login' %}"></a>
+            {% endif %}
+        </header>
         {% block content %}
         {% endblock %}
     </body>

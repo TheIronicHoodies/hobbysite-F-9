@@ -8,7 +8,8 @@
         <h1>Add a new Commission...</h1>
     </header>
     <section>
-        <form action="POST">
+        <label for="commission-make">{{commission.author}}</label>
+        <form action="POST" id="commission-make">
             {%csrf_token%}
             {{form.as_p}}
             {{add_job_form.as_p}}
