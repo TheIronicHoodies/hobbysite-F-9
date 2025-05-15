@@ -2,9 +2,63 @@
 
 {% block content %}
     <h1>Products</h1>
-    <ul>
-    {% for object in product_list %}
-        <ul>{{ object.ProductType }} ({{ object.ProductType.description }}): <a href= "{{ object.get_absolute_url }}" >{{ object }}</a></ul>
-    {% endfor %}
-    </ul>
+    {% if not user.is_authenticated %}
+        <ul>
+            {% for type in type_list %}
+                {{ type }}
+                {% for object in product_list %}
+                    <ul>
+                        {{ object.ProductType }} ({{ object.ProductType.description }}): 
+                        <a href= "{{ object.get_absolute_url }}" >{{ object }}</a> 
+                        ({{ object.status }}: {{ object.stock }} available) 
+                    </ul>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    
+    {% else %}
+        <h1>{{ user.username }}'s products on sale</h1>
+        <ul>
+            {% for type in type_list %}
+                {{ type }}
+                {% for object in product_list %}
+                    {% if object.owner == user.profile and object.ProductType == type %}
+                        <ul>
+                            {{ object.ProductType }} ({{ object.ProductType.description }}): 
+                            <a href= "{{ object.get_absolute_url }}" >{{ object }}</a>
+                            ({{ object.status }}: {{ object.stock }} available) 
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+
+        <h1>All other products</h1>
+        <ul>
+            {% for type in type_list %}
+                {{ type }}
+                {% for object in product_list %}
+                    {% if object.owner != user.profile and object.ProductType == type %}
+                        <ul>
+                            {{ object.ProductType }} ({{ object.ProductType.description }}): 
+                            <a href= "{{ object.get_absolute_url }}" >{{ object }}</a>
+                            ({{ object.status }}: {{ object.stock }} available) 
+                            from {{ object.owner }}
+                        </ul>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <button type="submit">
+        <a href="{% url 'merchstore:add-product' %}">Add a product</a>
+    </button>
+    <br><br>
+    <button type="submit">
+        <a href="{% url 'merchstore:cart' %}">View Cart</a>
+    </button>
+    <br><br>
+    <button type="submit">
+        <a href="{% url 'merchstore:transactions' %}">View Transactions</a>
+    </button>
 {% endblock %}

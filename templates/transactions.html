@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Transactions</h1>
+        <ul>
+            {% for object in transactions %}
+                {% if object.product.owner == user.profile %}
+                    <ul>
+                        {{ object.product }}: {{ object.amount }} 
+                        bought by {{ object.buyer }} 
+                        (Status: {{ object.status }})
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    <button><a href="{% url 'merchstore:product-list' %}">Back to list</a></button>
+{% endblock %}

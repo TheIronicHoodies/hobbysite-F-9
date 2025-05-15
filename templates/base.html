@@ -67,6 +67,7 @@
                 <form class="logout" method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <button type="submit">Login</button>
+                </form>
             {% endif %}
         </header>
         {% block content %}
