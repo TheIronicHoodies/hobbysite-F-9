@@ -56,7 +56,10 @@ class Job(models.Model):
         return self.manpower_required - filled
     
     def get_absolute_url(self):
-        return reverse('commissions:job', args=[str(self.pk)])
+        return reverse('commissions:commissions-detail', args=[self.commission.pk])
+    
+    def __str__(self):
+        return str(self.role)
 
 
 class JobApplication(models.Model):
@@ -70,7 +73,7 @@ class JobApplication(models.Model):
         ordering = ['status', '-applied_on']
 
     def get_absolute_url(self):
-        return reverse('commissions:job_application', args=[str(self.pk)])
+        return reverse('commissions:commissions-detail', args=[self.job.commission.pk])
 
 
 class Comment(models.Model):

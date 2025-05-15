@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Commission, Comment
+from .models import Commission, Comment, Job
 
 # Register your models here.
 class CommentInline(admin.TabularInline):
@@ -11,6 +11,10 @@ class CommissionAdmin(admin.ModelAdmin):
 
 class CommentAdmin(admin.ModelAdmin):
     model = Comment
+    
+class JobAdmin(admin.ModelAdmin):
+    model = Job
 
 admin.site.register(Commission, CommissionAdmin)
 admin.site.register(Comment, CommentAdmin)
+admin.site.register(Job, JobAdmin)
