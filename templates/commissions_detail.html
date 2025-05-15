@@ -11,16 +11,21 @@
         
     </header>
 
+    {% if commission.author == request.user.profile %}
+        <a href="{% url 'commissions:commissions-update' %}">Update this commission</a>
+    {% endif %}
+
     {% for job in commission %}
         <p>People required: {{job.manpower_required}}</p>
         <p>Slots left: {{job.manpower_left}}</p>
-    
+        {% if job.manpower_left > 0 %}
+            <form action="POST">
+                {%csrf_token%}
+                {{form.as_p}}
+                <button type="submit">Apply to Job</button>
+            </form>
+        {% endif %}
     <p>{{commission.description}}</p>
-
-    <form action="POST">
-        {%csrf_token%}
-        {{form.as_p}}
-    </form>
 
     <section>
         <h1>Comments</h1>
