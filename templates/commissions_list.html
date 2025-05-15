@@ -21,12 +21,14 @@
 
         <!--list of commissions applied to-->
         {% if request.user.is_authenticated %}
-            <h1>Commissions you've applied to</h1>
+            <h1>Commissions you've applied to:</h1>
             {% for commission in object_list %}
             <div>
+            {% if commission.jobs.job_application.applicant == request.user.profile %}
                 <a href="{{commission.get_absolute_url}}">{{commission.title}}</a>
                 <p>Status: {{commission.status}}</p>
                 <p>Created on: {{commission.created_on}}</p>
+            {% endif %}
             </div>
             {% endfor %}
         {% endif %}

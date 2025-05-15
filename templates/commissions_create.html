@@ -6,11 +6,9 @@
 {% block content %}
     <h1>Add a new Commission...</h1>
     <section>
-        <label for="commission-make">{{commission.author}}</label>
         <form method="POST">
             {%csrf_token%}
             {{form.as_p}}
-            {{add_job_form.as_p}}
             <button type="submit">Submit</button>
         </form>
     </section>
