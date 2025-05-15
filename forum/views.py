@@ -11,38 +11,32 @@ from .forms import ThreadForm, CommentForm
 class ThreadListView(ListView):
     model = Thread
     template_name = "forum_list.html"
-    context_object_name = "other_threads"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        #get the categories
         categories = ThreadCategory.objects.all()
+
         context["categories"] = categories
 
-        #separates threads by the current user
         if self.request.user.is_authenticated:
             user_threads = Thread.objects.filter(author=self.request.user.profile)
-            other_threads = Thread.objects.exclude(author=self.request.user.profile)
         else:
-            user_threads = []
-            other_threads = Thread.objects.all()
+            user_threads = Thread.objects.none()
 
         context["user_threads"] = user_threads
-        context["other_threads"] = other_threads
 
-        #groups threads
-        threads_by_category = {}
+        # Group other threads by category
+        threads_by_category = []
         for category in categories:
-            threads_in_category = other_threads.filter(category=category)
-            if threads_in_category.exists():
-                threads_by_category[category] = threads_in_category
+            threads = Thread.objects.filter(category=category)
+            if self.request.user.is_authenticated:
+                threads = threads.exclude(author=self.request.user.profile)
+            threads_by_category.append((category, threads))
 
         context["threads_by_category"] = threads_by_category
 
         return context
-
-
+    
 class ThreadDetailView(DetailView):
     model = Thread
     template_name = "forum_detail.html"
