@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('commissions/', include('commissions.urls', namespace='commissions')),
@@ -24,5 +26,8 @@ urlpatterns = [
     path('', include('merchstore.urls', namespace='merchstore')),
     path('', include('blog.urls', namespace='blog')),
     path('user_management/', include('user_management.urls', namespace='user_management')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

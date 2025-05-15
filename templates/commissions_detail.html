@@ -18,12 +18,14 @@
     {% for job in commission %}
         <p>People required: {{job.manpower_required}}</p>
         <p>Slots left: {{job.manpower_left}}</p>
-        {% if job.manpower_left > 0 %}
-            <form action="POST">
-                {%csrf_token%}
-                {{form.as_p}}
-                <button type="submit">Apply to Job</button>
-            </form>
+        <form action="POST">
+            {%csrf_token%}
+            {{form.as_p}}
+            {% if job.manpower_left > 0 %}
+            <input type="submit" value="Apply to Job">
+            {% else %}
+            <input type="submit" value="Apply to Job" disabled>
+        </form>
         {% endif %}
     <p>{{commission.description}}</p>
 
