@@ -5,11 +5,46 @@
 {% block content %}
     <h1>{{ article.title }}</h1>
 
+    {% if article.header_image %}
+        <img src="{{ article.header_image.url }}" alt="Article Header Image">
+    {% endif %}
+
+    <p>Created On: {{ article.created_on }}</p>
+    <p>Last Updated: {{ article.updated_on }}</p>
+    <p>{{ article.entry }}</p>
+
+    {% if request.user.is_authenticated and request.user.profile == article.author %}
+        <a href="{% url 'blog:blog_update' article.pk %}">Edit Article here</a>
+    {% endif %}
+
+    <h2>{{ article.author }}'s other works:</h2>
     <ul>
-        <li>{{ article.created_on }}</li>
-        <li>{{ article.updated_on }}</li>
-        <li>{{ article.entry }}</li>
+        {% for author_article in author_articles %}
+            <li><a href="{{ author_article.get_absolute_url }}">{{ author_article.title }}</a></li>
+        {% empty %}
+            <li>You're all caught up on {{ article.author }}'s articles!</li>
+        {% endfor %}
     </ul>
+    
 
+    <a href="{% url 'blog:blog_list' %}">Back to Article List</a>
 
+    <h2>Make a Comment</h2>
+    {% if request.user.is_authenticated %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Upload Comment</button>
+        </form> 
+    {% else %}
+        <p>You must be logged in to add a comment</p>
+    {% endif %}
+
+    <h2>Comment Section</h2>
+    {% for comment in comments %}
+        <div>
+            <p>{{ comment.entry }}</p>
+            <p>Created on: {{ comment.created_on }}</p>
+        </div>
+    {% endfor %}
 {% endblock %}

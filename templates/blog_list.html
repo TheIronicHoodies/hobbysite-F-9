@@ -2,9 +2,27 @@
 
 {% block title %}Article List{% endblock %}
 {% block content %}
-    <h1>Articles</h1>
-    {% for article in article_list %}
-        <ul>{{ article.category }}: <a href= "{{ article.get_absolute_url }}">{{ article.title }}</a></ul>
+    {% if request.user.is_authenticated %}
+        <h1>{{ request.user.username }}'s Articles</h1>
+        {% for article in user_articles %}
+            <p><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></p>
+        {% empty %}
+            <p>You haven't written any articles yet.</p>
+        {% endfor %}
+
+        <p><a href="{% url 'blog:blog_create' %}">Create a new article here</a></p>
+    {% endif %}
+
+    <h1>All Articles by Category</h1>
+    {% for category, articles in grouped_articles.items %}
+        <h2>{{ category }}</h2>
+        <ul>
+            {% for article in articles %}
+                <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% empty %}
+        <p>No articles available.</p>
     {% endfor %}
 {% endblock %}
 
