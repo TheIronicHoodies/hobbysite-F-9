@@ -3,14 +3,17 @@
 {% block content %}
     <h1>Transactions</h1>
         <ul>
-            {% for object in transactions %}
-                {% if object.product.owner == user.profile %}
-                    <ul>
-                        {{ object.product }}: {{ object.amount }} 
-                        bought by {{ object.buyer }} 
-                        (Status: {{ object.status }})
-                    </ul>
-                {% endif %}
+            {% for type in type_list %}
+                {{ type }}
+                {% for object in transactions %}
+                    {% if object.product.owner == user.profile and object.product.ProductType == type%}
+                        <ul>
+                            {{ object.product }}: {{ object.amount }} 
+                            bought by {{ object.buyer }} 
+                            (Status: {{ object.status }})
+                        </ul>
+                    {% endif %}
+                {% endfor %}
             {% endfor %}
         </ul>
     <button><a href="{% url 'merchstore:product-list' %}">Back to list</a></button>
