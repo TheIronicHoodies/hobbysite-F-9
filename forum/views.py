@@ -10,7 +10,7 @@ from .forms import ThreadForm, CommentForm
 
 class ThreadListView(ListView):
     model = Thread
-    template_name = "forum/thread_list.html"
+    template_name = "forum_list.html"
     context_object_name = "other_threads"
 
     user_threads = []
@@ -31,7 +31,7 @@ class ThreadListView(ListView):
 
 class ThreadDetailView(DetailView):
     model = Thread
-    template_name = "forum/thread_detail.html"
+    template_name = "forum_detail.html"
     context_object_name = "thread"
 
     def get_context_data(self, **kwargs):
@@ -60,7 +60,7 @@ class ThreadDetailView(DetailView):
 class ThreadCreateView(CreateView):
     model = Thread
     form_class = ThreadForm
-    template_name = "forum/add_thread.html"
+    template_name = "add_thread.html"
 
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
@@ -74,7 +74,7 @@ class ThreadCreateView(CreateView):
 class ThreadUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Thread
     form_class = ThreadForm
-    template_name = "forum/add_thread.html"
+    template_name = "add_thread.html"
 
     def form_valid(self, form):
         return super().form_valid(form)
