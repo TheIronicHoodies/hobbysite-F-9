@@ -5,7 +5,7 @@ from .models import Transaction, Product
 class TransactionForm(forms.ModelForm):
     class Meta:
         model = Transaction
-        fields = ['amount']
+        fields = ['amount' ,'status']
 
 
 class CreateProduct(forms.ModelForm):
