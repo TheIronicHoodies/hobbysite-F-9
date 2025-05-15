@@ -59,6 +59,12 @@
     <body>
         <header>
             {% if request.user.is_authenticated %}
+                <form class="logout" method="POST" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Logout</button>
+                </form>
+            {% else %}
                 <a href="{% url 'accounts:login' %}"></a>
             {% endif %}
         </header>
