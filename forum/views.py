@@ -13,18 +13,32 @@ class ThreadListView(ListView):
     template_name = "forum_list.html"
     context_object_name = "other_threads"
 
-    user_threads = []
-    other_threads = Thread.objects.all()
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["categories"] = ThreadCategory.objects.all()
 
+        #get the categories
+        categories = ThreadCategory.objects.all()
+        context["categories"] = categories
+
+        #separates threads by the current user
         if self.request.user.is_authenticated:
-            context["user_threads"] = Thread.objects.filter(author=self.request.user.profile)
-            context["other_threads"] = Thread.objects.exclude(author=self.request.user.profile)
+            user_threads = Thread.objects.filter(author=self.request.user.profile)
+            other_threads = Thread.objects.exclude(author=self.request.user.profile)
         else:
-            context["user_threads"] = []
+            user_threads = []
+            other_threads = Thread.objects.all()
+
+        context["user_threads"] = user_threads
+        context["other_threads"] = other_threads
+
+        #groups threads
+        threads_by_category = {}
+        for category in categories:
+            threads_in_category = other_threads.filter(category=category)
+            if threads_in_category.exists():
+                threads_by_category[category] = threads_in_category
+
+        context["threads_by_category"] = threads_by_category
 
         return context
 

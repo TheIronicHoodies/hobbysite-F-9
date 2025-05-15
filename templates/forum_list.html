@@ -25,16 +25,16 @@
     <hr>
 {% endif %}
 
-<h2>All Threads</h2>
-{% for category in categories %}
-    <h3>{{ category.name }}</h3>
-    <ul>
-        {% for thread in other_threads %}
-            {% if thread.category == category %}
-                <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
-            {% endif %}
+<h2>All Categories</h2>
+{% for category, threads in threads_by_category.items %}
+  <h3>{{ category.name }}</h3>
+  <ul>
+        {% for thread in threads %}
+        <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
+        {% empty %}
+        <li>No threads in this category.</li>
         {% endfor %}
-    </ul>
+  </ul>
 {% endfor %}
 
 {% endblock %}

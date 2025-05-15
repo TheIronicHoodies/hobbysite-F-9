@@ -4,17 +4,19 @@ from user_management.models import Profile
 
 
 class ThreadCategory(models.Model):
+    #groups of threads
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     class Meta:
-        ordering = ["name"] 
+        ordering = ["name"] #sorts threads alphabetically
 
     def __str__(self):
         return self.name
 
 
 class Thread(models.Model):
+    #main discussion thread
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
     category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
@@ -24,7 +26,7 @@ class Thread(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["-created_on"] 
+        ordering = ["-created_on"]  #sorts by oldest
 
     def __str__(self):
         return self.title
