@@ -31,11 +31,11 @@
 
         <!--list of commissions in general-->
         <h1>Available Commissions:</h1>
-        {% for commission in object_list %}
+        {% for object in object_list %}
         <div>
-            <a href="{{commission.get_absolute_url}}">{{commission}}</a>
-            <p>Status: {{commission.status}}</p>
-            <p>Created on: {{commission.created_on}}</p>
+            <a href="{{object.get_absolute_url}}">{{commission}}</a>
+            <p>Status: {{object.status}}</p>
+            <p>Created on: {{object.created_on}}</p>
         </div>
         {% endfor %}
         <a href="{% url 'commissions:commissions-add' %}">Create a new commission...</a>
