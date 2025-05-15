@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import redirect
 from django.http import HttpResponseForbidden
-from .models import Article
+from .models import Article, ArticleCategory
 from .forms import ArticleCreateForm, ArticleUpdateForm, CommentForm
 from collections import defaultdict
 
@@ -15,27 +15,7 @@ class ArticleListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if self.request.user.is_authenticated:
-            user_profile = getattr(self.request.user, "profile", None)
-        else:
-            user_profile = None
-
-        if user_profile:
-            user_articles  = Article.objects.filter(author=user_profile)
-            other_articles = Article.objects.exclude(author=user_profile)
-        else:
-            user_articles  = Article.objects.none()          # empty queryset
-            other_articles = Article.objects.all()
-
-        grouped_articles = defaultdict(list)
-        for article in other_articles.select_related("category"):
-            category_name = article.category.name if article.category else "Uncategorized"
-            grouped_articles[category_name].append(article)
-
-        grouped_articles = dict(sorted(grouped_articles.items(), key=lambda item: item[0].lower()))
-
-        context["user_articles"]   = user_articles
-        context["grouped_articles"] = grouped_articles
+        context['category_list'] = ArticleCategory.objects.all()
         return context
 
 class ArticleDetailView(DetailView):
