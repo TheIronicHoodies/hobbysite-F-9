@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Welcome to Group 9's hobbysite.</h1>
+    <p>Please explore our different categories to your heart's content!</p>
+
+    <ul>
+        <li><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+        <li><a href="{% url 'commissions:commissions-list' %}">Commissions</a></li>
+        <li><a href="{% url 'forum:thread-list' %}">Forum</a></li>
+        <li><a href="{% url 'merchstore:product-list' %}">Merch Store</a></li>
+        <li><a href="{% url 'wiki:list' %}">Wiki</a></li>
+    </ul>
+</section>
+{% endblock %}

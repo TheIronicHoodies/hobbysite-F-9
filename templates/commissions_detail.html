@@ -4,12 +4,9 @@
 {% block title %}{{commission.title}}{% endblock %}
 
 {% block content %}
-    <header>
-        <h1>{{commission.title}}</h1>
-        <h2>Created on: {{commission.created_on}}</h2>
-        <h2>Last updated: {{commission.last_updated}}</h2>
-        
-    </header>
+    <h1>{{commission.title}}</h1>
+    <h2>Created on: {{commission.created_on}}</h2>
+    <h2>Last updated: {{commission.last_updated}}</h2>
 
     {% if commission.author == request.user.profile %}
         <a href="{% url 'commissions:commissions-update' %}">Update this commission</a>

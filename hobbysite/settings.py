@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'wiki',
     'forum',
     'blog',
-    'user_management'
+    'user_management',
+    'accounts'
 ]
 
 MIDDLEWARE = [
@@ -133,6 +134,6 @@ MEDIA_ROOT = BASE_DIR/'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = '/wiki/articles/list' #tentatively putting this here idk 
+LOGIN_REDIRECT_URL = '' #tentatively putting this here idk 
 LOGOUT_REDIRECT_URL = '/accounts/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
