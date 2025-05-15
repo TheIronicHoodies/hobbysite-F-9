@@ -6,7 +6,7 @@
 {% block content %}
     <h1>Add a new Commission...</h1>
     <section>
-        <form action="post" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
             <p>By: {{request.user}}</p>
             <p>Created on: {{commission.created_on}}</p>
             <p>Last Updated: {{commission.last_updated}}</p>

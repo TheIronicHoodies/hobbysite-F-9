@@ -15,7 +15,7 @@
     {% for job in commission %}
         <p>People required: {{job.manpower_required}}</p>
         <p>Slots left: {{job.manpower_left}}</p>
-        <form action="POST">
+        <form method="POST">
             {%csrf_token%}
             {{form.as_p}}
             {% if job.manpower_left > 0 %}
