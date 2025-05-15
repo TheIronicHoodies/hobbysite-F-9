@@ -31,11 +31,11 @@ class Thread(models.Model):
 
     def get_absolute_url(self):
         return reverse('forum:thread-detail', args=[str(self.id)])
-    
+
 class Comment(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    text = models.TextField()
+    post = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
