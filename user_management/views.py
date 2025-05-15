@@ -7,12 +7,10 @@ from .models import Profile
 class ProfileUpdate(UpdateView):
     model = Profile
     form_class = ProfileUpdateForm
-    template_name = "profile.html"
+    template_name = "profile_update.html"
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx["profile"] = Profile.objects.get(pk=self.kwargs["pk"])
-        return ctx
+    def get_object(self,):
+        return self.request.user.profile
 
     def form_valid(self, form):
         form.instance.issue = self.request.user
