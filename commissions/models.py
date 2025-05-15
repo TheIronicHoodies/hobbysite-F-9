@@ -37,6 +37,9 @@ class Commission(models.Model):
 
     def __str__(self):
         return str(self.title)
+    
+    def get_absolute_url(self):
+        return reverse('commissions:commission', args=[str(self.pk)])
 
 
 class Job(models.Model):
@@ -51,6 +54,9 @@ class Job(models.Model):
     def manpower_left(self):
         filled = JobApplication.objects.filter(job=self.id, status='ACCEPTED').count()
         return self.manpower_required - filled
+    
+    def get_absolute_url(self):
+        return reverse('commissions:job', args=[str(self.pk)])
 
 
 class JobApplication(models.Model):
@@ -62,6 +68,9 @@ class JobApplication(models.Model):
 
     class Meta:
         ordering = ['status', '-applied_on']
+
+    def get_absolute_url(self):
+        return reverse('commissions:job_application', args=[str(self.pk)])
 
 
 class Comment(models.Model):
@@ -77,3 +86,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.entry)
+    
+    def get_absolute_url(self):
+        return reverse('commissions:comment', args=[str(self.pk)])

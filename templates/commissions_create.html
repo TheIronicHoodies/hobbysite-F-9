@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{commission.title}}{% endblock %}
+{% block title %}Create new Commission{% endblock %}
 
 {% block content %}
     <h1>Add a new Commission...</h1>
     <section>
-        <label for="commission-make">{{commission.author}}</label>
-        <form action="POST" id="commission-make">
+        <form action="post" enctype="multipart/form-data">
+            <p>By: {{request.user}}</p>
+            <p>Created on: {{commission.created_on}}</p>
+            <p>Last Updated: {{commission.last_updated}}</p>
             {%csrf_token%}
             {{form}}
-            <!-- {{add_job_form.as_p}} -->
             <button type="submit">Submit</button>
         </form>
     </section>

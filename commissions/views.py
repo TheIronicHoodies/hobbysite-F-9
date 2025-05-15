@@ -16,6 +16,7 @@ class CommissionsList(ListView):
 class CommissionsDetail(DetailView):
     model = Commission
     template_name = 'commissions_detail.html'
+    redirect_field_name = '/accounts/login'
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
@@ -30,7 +31,7 @@ class CommissionsCreate(CreateView, LoginRequiredMixin):
 
     def form_valid(self, form):
         commission = form.save(commit=False)
-        commission.creator = self.request.user.profile
+        commission.author = self.request.user.profile
         commission.save()
         return super().form_valid(form)
 
