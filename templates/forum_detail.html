@@ -23,7 +23,12 @@
 <ul>
     {% for comment in comments %}
         <li>
-            <strong>{{ comment.author.name if comment.author else "Anonymous" }}</strong> said:
+            <strong>{% if comment.author %}
+                        {{ comment.author.name }}
+                    {% else %}
+                        Anonymous
+                    {% endif %}
+</strong> said:
             <p>{{ comment.entry }}</p>
             <small>{{ comment.created_on|date:"M d, Y H:i" }}</small>
         </li>
