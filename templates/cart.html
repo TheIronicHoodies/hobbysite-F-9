@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Cart Items of {{ user.username }}</h1>
+        <ul>
+            {% for type in type_list %}
+                {{ type }}
+                {% for object in cart %}
+                    {% if object.product.ProductType == type %}
+                    <ul>
+                        {{ object.product }}: {{ object.amount }} 
+                        bought from {{ object.product.owner }}
+                        on {{ object.CreatedOn }} 
+                        (Status: {{ object.status }})
+                    </ul>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </ul
+    <button><a href="{% url 'merchstore:product-list' %}">Back to list</a></button>
+{% endblock %}

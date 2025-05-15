@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ object.name }}</h1>
+    <ul>
+        <li>
+        {{ object.name }} ({{ object.description }}): {{ object.price }} pesos ({{ object.stock }} in stock)
+        </li>
+    </ul>
+
+    {% if object.owner != user.profile %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        {% if object.stock != 0 %}
+        <button type="submit">Buy</button>
+        {% endif %}
+    {% endif %}
+
+    {% if object.owner == user.profile %}
+        <button><a href="{% url 'merchstore:product-update' pk=object.pk %}">Update Product</a></button>
+    {% endif %}
+    <br><br>
+    <button><a href="{% url 'merchstore:product-list' %}">Back to list</a></button>
+{% endblock %}
