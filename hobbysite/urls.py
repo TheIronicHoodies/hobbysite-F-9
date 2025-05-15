@@ -20,12 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('commissions/', include('commissions.urls', namespace='commissions')),
+    path('commissions', include('commissions.urls', namespace='commissions')),
     path('wiki/', include('wiki.urls', namespace ='wiki')),
     path('forum/', include('forum.urls', namespace='forum')),
     path('', include('merchstore.urls', namespace='merchstore')),
     path('', include('blog.urls', namespace='blog')),
-    path('user_management/', include('user_management.urls', namespace='user_management')),
+    path('profile/', include('user_management.urls', namespace='profile')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
