@@ -20,15 +20,15 @@
 {% endif %}
 
 <h2>All Categories</h2>
-{% for category in categories %}
-    <h3>{{ category.name }}</h3>
-    <ul>
-        {% for thread in threads_by_category.category %}
-            <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
-        {% empty %}
-            <li>No threads in this category.</li>
-        {% endfor %}
-    </ul>
+{% for category, threads in threads_by_category %}
+  <h3>{{ category.name }}</h3>
+  <ul>
+      {% for thread in threads %}
+          <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
+      {% empty %}
+          <li>No threads in this category.</li>
+      {% endfor %}
+  </ul>
 {% endfor %}
 
 {% endblock %}

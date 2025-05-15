@@ -29,8 +29,6 @@ class ThreadListView(ListView):
         threads_by_category = []
         for category in categories:
             threads = Thread.objects.filter(category=category)
-            if self.request.user.is_authenticated:
-                threads = threads.exclude(author=self.request.user.profile)
             threads_by_category.append((category, threads))
 
         context["threads_by_category"] = threads_by_category
