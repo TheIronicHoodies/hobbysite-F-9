@@ -50,15 +50,17 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <button type="submit">
-        <a href="{% url 'merchstore:add-product' %}">Add a product</a>
-    </button>
-    <br><br>
-    <button type="submit">
-        <a href="{% url 'merchstore:cart' %}">View Cart</a>
-    </button>
-    <br><br>
-    <button type="submit">
-        <a href="{% url 'merchstore:transactions' %}">View Transactions</a>
-    </button>
+    <section class="merchstore_btns">
+        <button type="submit">
+            <a href="{% url 'merchstore:add-product' %}">Add a product</a>
+        </button>
+    
+        <button type="submit">
+            <a href="{% url 'merchstore:cart' %}">View Cart</a>
+        </button>
+    
+        <button type="submit">
+            <a href="{% url 'merchstore:transactions' %}">View Transactions</a>
+        </button>
+    </section>
 {% endblock %}
