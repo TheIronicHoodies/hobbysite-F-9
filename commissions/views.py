@@ -31,6 +31,7 @@ class CommissionsDetail(DetailView, FormMixin):
 class CreateCommission(CreateView, LoginRequiredMixin):
     model = Commission
     form_class = CommissionForm
+    form_class.base_fields['author'].disabled = True
     template_name = 'commissions_create.html'
     redirect_field_name = '/accounts/login'
             
@@ -38,6 +39,7 @@ class CreateCommission(CreateView, LoginRequiredMixin):
 class UpdateCommission(UpdateView, LoginRequiredMixin):
     model = Commission
     form_class = CommissionUpdateForm
+    form_class.base_fields['author'].disabled = True
     template_name = 'commissions_update.html'
     
     def get(self, request, *args, **kwargs):

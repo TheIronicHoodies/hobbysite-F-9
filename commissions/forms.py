@@ -4,7 +4,7 @@ from .models import Commission, Job, JobApplication
 class CommissionForm(forms.ModelForm):
     class Meta:
         model = Commission
-        fields = ["title", "description", "status"]
+        fields = ["title", "author", "description", "status"]
 
 class JobForm(forms.ModelForm):
     class Meta:
@@ -14,7 +14,7 @@ class JobForm(forms.ModelForm):
 class CommissionUpdateForm(forms.ModelForm):
     class Meta:
         model = Commission
-        fields = ["title", "description", "status"]
+        fields = ["title", "author", "description", "status"]
 
 class JobUpdateForm(forms.ModelForm):
     class Meta:
