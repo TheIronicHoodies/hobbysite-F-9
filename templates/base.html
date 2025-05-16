@@ -1,102 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        {% load static %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Title{% endblock %}</title>
-        <style>
-            * {
-                box-sizing: border-box;
-                font-size: 1rem;
-                --light-blue: #BDC4D4;
-                --dark-blue: #1C2E4A;
-            }
-
-            body {
-                background-color: var(--dark-blue);
-                color: var(--light-blue);
-                font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-                padding: 1em;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1rem;
-                font-style: italic;
-            }
-
-            header {
-                border-bottom: 1px solid white;
-                display: flex;
-                flex-direction: row;
-                height: 20vh;
-                justify-content: space-between;
-                padding: 1em;
-            }
-
-            a, a:visited {
-                color: #0bf;
-                text-decoration: none;
-            }
-
-            button, input {
-                background-color: var(--light-blue);
-                border-radius: 1em;
-                color: var(--dark-blue);
-                height: auto;
-                padding: 1em;
-            }
-
-            button a, input a, button a:visited, input a:visited {
-                color: var(--dark-blue);
-            }
-
-            marquee {
-                display: block;
-                margin: 0 0 0 0;
-            }
-
-            #vertical_dvd {
-                border: 1px var(--light-blue) solid;
-                height: 100%;
-                width: 20%;
-            }
-
-            section h1 {
-                margin-top: 1rem;
-            }
-
-            .comment {
-                background-color: var(--light-blue);
-                border-radius: 1em;
-                color: var(--dark-blue);
-                padding: 1em;
-                width: 75%;
-            }
-
-            .commissions_list {
-                display: flex;
-                flex-direction: column;
-            }
-
-            .strong {
-                font-weight: bold !important;
-            }
-
-            .logout {
-                display: flex;
-                flex-direction: row-reverse;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href=" {% static 'style.css' %} ">
     </head>
     <body>
         <header>
             <marquee behavior="alternate" direction="down" id="vertical_dvd">
                 <marquee behavior="alternate" direction="">
-                    {{request.resolver_match.app_name}}
+                    {% if request.resolver_match.app_name %}
+                        {{request.resolver_match.app_name}}
+                    {% else %}
+                        hobbysite
+                    {% endif %}
                 </marquee>
             </marquee>
             

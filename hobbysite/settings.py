@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'blog',
     'user_management',
     'accounts',
-    'home'
 ]
 
 MIDDLEWARE = [
@@ -126,8 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR/'static']
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR/'static',
+]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR/'media'
 
@@ -135,6 +136,6 @@ MEDIA_ROOT = BASE_DIR/'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-LOGIN_REDIRECT_URL = '' #tentatively putting this here idk 
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
