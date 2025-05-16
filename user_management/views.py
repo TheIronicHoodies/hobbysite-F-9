@@ -1,9 +1,13 @@
 from django.shortcuts import render
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import CreateView, UpdateView
 from .forms import *
 from .models import Profile
 
 # Create your views here.
+class ProfileCreateView(CreateView):
+    template_name = "registration/register.html"
+    form_class = ProfileCreateForm
+
 class ProfileUpdate(UpdateView):
     model = Profile
     form_class = ProfileUpdateForm
