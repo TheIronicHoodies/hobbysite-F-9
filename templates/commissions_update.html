@@ -5,14 +5,9 @@
 
 {% block content %}
     <h1>Update {{commission.title}}</h1>
-    <section>
-        <form method="POST" enctype="multipart/form-data">
-            <p>By: {{request.user}}</p>
-            <p>Created on: {{commission.created_on}}</p>
-            <p>Last Updated: {{commission.last_updated}}</p>
+    <form method="POST">
             {%csrf_token%}
             {{form}}
-            <button type="submit">Submit</button>
+            <button type="submit">Update</button>
         </form>
-    </section>
 {% endblock %}

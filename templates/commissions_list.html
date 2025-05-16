@@ -8,23 +8,27 @@
         <!--list of user's own commissions-->
         {% if request.user.is_authenticated %}
             <h1>Your commissions</h1>
-            {% for commission in user_commissions %}
+            {% for commission in object_list %}
             <div>
-                <a href="{{commission.get_absolute_url}}">{{commission}}</a>
+            {% if commission.author == request.user.profile %}
+                <p><a href="{{commission.get_absolute_url}}">{{commission.title}}</a></p>
                 <p>Status: {{commission.status}}</p>
                 <p>Created on: {{commission.created_on}}</p>
+            {% endif %}
             </div>
             {% endfor %}
         {% endif %}
 
         <!--list of commissions applied to-->
         {% if request.user.is_authenticated %}
-            <h1>Commissions you've applied to</h1>
-            {% for commission in applied_commissions %}
+            <h1>Commissions you've applied to:</h1>
+            {% for commission in object_list %}
             <div>
-                <a href="{{commission.get_absolute_url}}">{{commission}}</a>
+            {% if commission.jobs.job_application.applicant == request.user.profile %}
+                <a href="{{commission.get_absolute_url}}">{{commission.title}}</a>
                 <p>Status: {{commission.status}}</p>
                 <p>Created on: {{commission.created_on}}</p>
+            {% endif %}
             </div>
             {% endfor %}
         {% endif %}
@@ -33,7 +37,7 @@
         <h1>Available Commissions:</h1>
         {% for object in object_list %}
         <div>
-            <a href="{{object.get_absolute_url}}">{{commission}}</a>
+            <p><a href="{{object.get_absolute_url}}">{{object.title}}</a></p>
             <p>Status: {{object.status}}</p>
             <p>Created on: {{object.created_on}}</p>
         </div>

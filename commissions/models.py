@@ -39,11 +39,11 @@ class Commission(models.Model):
         return str(self.title)
     
     def get_absolute_url(self):
-        return reverse('commissions:commission', args=[str(self.pk)])
+        return reverse('commissions:commissions-detail', args=[self.pk])
 
 
 class Job(models.Model):
-    commission = models.ForeignKey(Commission, on_delete=cascade)
+    commission = models.ForeignKey(Commission, on_delete=cascade, related_name='jobs')
     role = models.CharField(max_length=255)
     manpower_required = models.IntegerField(null=False)
     status = models.CharField(max_length=4, choices=STATUS_CHOICES_JOB, default=list(STATUS_CHOICES_JOB)[0])
@@ -56,7 +56,10 @@ class Job(models.Model):
         return self.manpower_required - filled
     
     def get_absolute_url(self):
-        return reverse('commissions:job', args=[str(self.pk)])
+        return reverse('commissions:commissions-detail', args=[self.commission.pk])
+    
+    def __str__(self):
+        return str(self.role)
 
 
 class JobApplication(models.Model):
@@ -70,7 +73,7 @@ class JobApplication(models.Model):
         ordering = ['status', '-applied_on']
 
     def get_absolute_url(self):
-        return reverse('commissions:job_application', args=[str(self.pk)])
+        return reverse('commissions:commissions-detail', args=[self.job.commission.pk])
 
 
 class Comment(models.Model):
