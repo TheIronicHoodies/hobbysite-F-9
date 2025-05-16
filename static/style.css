@@ -35,16 +35,24 @@ a, a:visited {
     text-decoration: none;
 }
 
-button, input {
+button, input[submit] {
     background-color: var(--light-blue);
     border-radius: 1em;
     color: var(--dark-blue);
-    height: auto;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 1em;
 }
 
-button a, input a, button a:visited, input a:visited {
+button a, input[submit] a, 
+button a:visited, input[submit] a:visited {
     color: var(--dark-blue);
+}
+
+input, select, textarea {
+    background-color: transparent;
+    border: 1px solid var(--light-blue);
+    color: var(--light-blue);
+    padding: 0.5em;
 }
 
 marquee {
@@ -81,5 +89,5 @@ section h1 {
 
 .logout {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column-reverse;
 }

@@ -1,4 +1,5 @@
 from django.db import models
+from user_management.models import Profile
 from django.urls import reverse
 
 # Create your models here.
@@ -29,12 +30,18 @@ class Article(models.Model):
         This creates the Article model, which has a title, category, entry text, and created and updated on dates
     """
     title = models.CharField(max_length = 255)
+    author = models.ForeignKey(
+        Profile,
+        null=True,
+        on_delete=models.SET_NULL
+    )
     category = models.ForeignKey(
         ArticleCategory,
         on_delete = models.SET_NULL,
         null=True
     )
     entry = models.TextField()
+    header_image = models.ImageField(upload_to='article_images/', null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
@@ -48,3 +55,22 @@ class Article(models.Model):
     def get_absolute_url(self):
         return reverse('blog:article_detail', args=[str(self.pk)])
     
+class Comment(models.Model):
+    author = models.ForeignKey(
+        Profile,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+    article = models.ForeignKey(
+        Article,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name='comments'
+    )
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_on']
+        # sorted by creation date in ascending order
