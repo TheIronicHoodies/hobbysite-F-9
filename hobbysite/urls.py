@@ -18,7 +18,6 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-<<<<<<< HEAD
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -28,19 +27,9 @@ urlpatterns = [
     path('forum/', include('forum.urls', namespace='forum')),
     path('', include('merchstore.urls', namespace='merchstore')),
     path('', include('blog.urls', namespace='blog')),
-=======
-
-urlpatterns = [
-    path('forum/', include('forum.urls', namespace='forum')),
->>>>>>> 801e2f7b540752b3d6ba526cb73d2fa918ac9968
     path('profile/', include('user_management.urls', namespace='profile')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
 ]
 
-<<<<<<< HEAD
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-=======
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
->>>>>>> 801e2f7b540752b3d6ba526cb73d2fa918ac9968
