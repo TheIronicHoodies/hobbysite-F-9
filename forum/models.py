@@ -43,7 +43,7 @@ class Thread(models.Model):
         return reverse('forum:thread-detail', args=[str(self.id)])
 
 class Comment(models.Model):
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='forum_comments')
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
     entry = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)

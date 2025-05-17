@@ -33,7 +33,8 @@ class Article(models.Model):
     author = models.ForeignKey(
         Profile,
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
+        related_name='blog_articles'
     )
     category = models.ForeignKey(
         ArticleCategory,
@@ -59,7 +60,8 @@ class Comment(models.Model):
     author = models.ForeignKey(
         Profile,
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
+        related_name='blog_comments'
     )
     article = models.ForeignKey(
         Article,
