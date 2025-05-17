@@ -70,7 +70,7 @@ class ThreadDetailView(DetailView):
 class ThreadCreateView(CreateView):
     model = Thread
     form_class = ThreadForm
-    template_name = "add_thread.html"
+    template_name = "forum_add.html"
 
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
@@ -84,7 +84,7 @@ class ThreadCreateView(CreateView):
 class ThreadUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Thread
     form_class = ThreadForm
-    template_name = "add_thread.html"
+    template_name = "forum_edit.html"
 
     def form_valid(self, form):
         return super().form_valid(form)
