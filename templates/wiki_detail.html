@@ -9,13 +9,6 @@
     <p><a href = {% url 'wiki:update' pk=object.pk%}> Update page </a></p>
 {% endif %}
 <h2>By: {{ article.author.name }} </h2>
-{% if request.user.is_authenticated %}
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Logout</button>
-    </form>
-{% endif %}
 <p> {{article.entry}} </p>
 <br>
 <p>Created on: {{article.created_on}}</p>
