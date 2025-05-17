@@ -25,10 +25,14 @@
                     <button type="submit">Logout</button>
                 </form>
             {% else %}
+<<<<<<< HEAD
                 <form class="logout" method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <button type="submit">Login</button>
                 </form>
+=======
+                <a href="{% url 'login' %}"></a>
+>>>>>>> 801e2f7b540752b3d6ba526cb73d2fa918ac9968
             {% endif %}
         </header>
         {% block content %}

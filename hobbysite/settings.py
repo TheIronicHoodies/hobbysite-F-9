@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'merchstore',
     'wiki',
     'forum',
+<<<<<<< HEAD
     'blog',
+=======
+>>>>>>> 801e2f7b540752b3d6ba526cb73d2fa918ac9968
     'user_management',
     'accounts',
 ]
@@ -136,6 +139,12 @@ MEDIA_ROOT = BASE_DIR/'media'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+<<<<<<< HEAD
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/accounts/login'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+=======
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+>>>>>>> 801e2f7b540752b3d6ba526cb73d2fa918ac9968

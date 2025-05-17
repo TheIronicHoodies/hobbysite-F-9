@@ -1,16 +1,34 @@
 {% extends "base.html" %}
-{% load static %}
-{% block title %}Forum Posts{% endblock %}
+
+{% block title %}Forum Threads{% endblock %}
 
 {% block content %}
+<h1>All Threads</h1>
 
-    <h1>Forums</h1>
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+    <a href="{% url 'forum:add_thread' %}">Create a new thread</a>
+
+    <h2>Your Threads</h2>
     <ul>
-        {% for post in posts %}
-            <li><a href="/forum/thread/{{ post.id }}/">{{ post.title }}</a> (Category: {{ post.category.name }})</li>
+        {% for thread in user_threads %}
+            <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
         {% empty %}
-            <li>No threads found.</li>
+            <li>You haven't posted any threads yet.</li>
         {% endfor %}
     </ul>
-    
+{% endif %}
+
+<h2>All Categories</h2>
+{% for category, threads in threads_by_category %}
+  <h3>{{ category.name }}</h3>
+  <ul>
+      {% for thread in threads %}
+          <li><a href="{% url 'forum:thread_detail' thread.pk %}">{{ thread.title }}</a></li>
+      {% empty %}
+          <li>No threads in this category.</li>
+      {% endfor %}
+  </ul>
+{% endfor %}
+
 {% endblock %}

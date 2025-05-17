@@ -1,22 +1,24 @@
 """Creates an admin panel for the forum app."""
 
 from django.contrib import admin
-from .models import PostCategory, Post
+from .models import ThreadCategory, Thread, Comment
 
-class PostCategoryAdmin(admin.ModelAdmin):
-    """Creates admin interface for the categories"""
-
+class ThreadCategoryAdmin(admin.ModelAdmin):
     search_fields = ("name",)  
     list_display = ("name", "description")  
     ordering = ("name",) 
 
-class PostAdmin(admin.ModelAdmin):
-    """Creates admin interface for the posts"""
-
+class ThreadAdmin(admin.ModelAdmin):
     search_fields = ("title", "entry") 
     list_display = ("title", "category", "created_on", "updated_on")  
     list_filter = ("category",)  
     ordering = ("-created_on",)  
 
-admin.site.register(PostCategory, PostCategoryAdmin)
-admin.site.register(Post, PostAdmin)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("thread", "author", "created_on")
+    list_filter = ("created_on",)
+    search_fields = ("entry",)
+
+admin.site.register(ThreadCategory, ThreadCategoryAdmin)
+admin.site.register(Thread, ThreadAdmin)
+admin.site.register(Comment, CommentAdmin)
