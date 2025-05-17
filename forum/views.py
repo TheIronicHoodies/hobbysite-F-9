@@ -84,7 +84,7 @@ class ThreadCreateView(CreateView):
 class ThreadUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Thread
     form_class = ThreadForm
-    template_name = "forum_add.html"
+    template_name = "forum_edit.html"
 
     def form_valid(self, form):
         return super().form_valid(form)
