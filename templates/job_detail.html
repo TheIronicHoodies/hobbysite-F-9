@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{object.role}}{% endblock %}
+
+{% block content%}
+<h1> Commission: <a href = {% url 'commissions:commissions-detail' pk=object.commission.pk %}> {{ object.commission.title }} </a> </h1>
+<h2> Role: {{ object.role }} </h2>
+<p> Manpower required: {{ object.manpower_required }}</p>
+<p> Manpower left: {{ object.manpower_left }}</p>
+<p> Status: {{object.status}} </p>
+{% if object.commission.author == request.user.profile %}
+<p><a href = {% url 'commissions:job-update' pk=object.pk %}>Update Job</a></p>
+{% endif %}
+<form method="POST">
+            {%csrf_token%}
+            {{form}}
+            {% if job.manpower_left > 0 %}
+            <input type="submit" value="Apply to job">
+            {% else %}
+            <input type="submit" value="Apply to job" disabled>
+            {% endif %}
+</form>
+{% endblock %}
