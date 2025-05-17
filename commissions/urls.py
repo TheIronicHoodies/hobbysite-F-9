@@ -6,8 +6,8 @@ urlpatterns = [
     path('detail/<int:pk>', CommissionsDetail.as_view(), name='commissions-detail'),
     path('add', CreateCommission.as_view(), name='commissions-add'),
     path('<int:pk>/edit', UpdateCommission.as_view(), name='commissions-edit'),
-    path('job/add', CreateJob.as_view(), name='commissions-job'),
-    path('job/update', UpdateJob.as_view(), name='commissions-job-update'),
+    path('job/<int:pk>', JobView.as_view(), name='job-detail'),
+    path('job/<int:pk>/update', UpdateJob.as_view(), name='job-update'),
 ]
 
 app_name = 'commissions'
