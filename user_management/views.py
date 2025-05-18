@@ -4,7 +4,7 @@ from .forms import *
 from .models import Profile
 
 # Create your views here.
-class ProfileCreateView(CreateView):
+class ProfileCreate(CreateView):
     template_name = "registration/register.html"
     form_class = ProfileCreateForm
 
