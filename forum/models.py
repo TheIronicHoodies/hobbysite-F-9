@@ -2,18 +2,16 @@
 
 from django.db import models
 from django.urls import reverse
+from user_management.models import Profile
 
 
-class PostCategory(models.Model):
-    """Creates a PostCategory model following the specs."""
-
+class ThreadCategory(models.Model):
+    #groups of threads
     name = models.CharField(max_length=255)
     description = models.TextField()
 
     class Meta:
-        """Set the order of data in ascending order."""
-
-        ordering = ["name"] 
+        ordering = ["name"] #sorts threads alphabetically
 
     def __str__(self):
         """Returns name of the post category."""
@@ -21,19 +19,18 @@ class PostCategory(models.Model):
         return self.name
 
 
-class Post(models.Model):
-    """Creates a Post model following the specs."""
-
+class Thread(models.Model):
+    #main discussion thread
     title = models.CharField(max_length=255)
-    category = models.ForeignKey(PostCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    category = models.ForeignKey(ThreadCategory, on_delete=models.SET_NULL, null=True, related_name="posts")
     entry = models.TextField()
+    image = models.ImageField(upload_to='thread_images/', null=True, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        """Set the order of data in descending order."""
-
-        ordering = ["-created_on"] 
+        ordering = ["-created_on"]  #sorts by oldest
 
     def __str__(self):
         """Returns the title of the post."""
@@ -45,3 +42,15 @@ class Post(models.Model):
 
         return reverse('forum:thread-detail', args=[str(self.id)])
 
+class Comment(models.Model):
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='forum_comments')
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE)
+    entry = models.TextField()
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_on']
+
+    def __str__(self):
+        return f"Comment by {self.author} on {self.thread}"

@@ -8,12 +8,12 @@ from .views import(
 
 
 urlpatterns = [
-    path('merchstore/items', ProductListView.as_view(), name='product-list'),
-    path('merchstore/item/<int:pk>', ProductDetailView.as_view(), name='product'),
-    path('merchstore/item/add', ProductCreateView.as_view(), name='add-product'),
-    path('merchstore/item/<int:pk>/edit', ProductUpdateView.as_view(), name='product-update'),
-    path('merchstore/cart', CartView.as_view(), name='cart'), 
-    path('merchstore/transactions', TransactionsListView.as_view(), name='transactions')
+    path('items', ProductListView.as_view(), name='product-list'),
+    path('item/<int:pk>', ProductDetailView.as_view(), name='product'),
+    path('item/add', ProductCreateView.as_view(), name='add-product'),
+    path('item/<int:pk>/edit', ProductUpdateView.as_view(), name='product-update'),
+    path('cart', CartView.as_view(), name='cart'), 
+    path('transactions', TransactionsListView.as_view(), name='transactions')
 ]
 
 app_name = "merchstore"

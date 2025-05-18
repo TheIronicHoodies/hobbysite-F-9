@@ -1,11 +1,63 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}{{ post.title }}{% endblock %}
+
+{% block title %}{{ thread.title }} - Forum{% endblock %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p class="strong">Category: {{ post.category.name }}</p>
-    <p class="strong">Posted on: {{ post.created_on }}</p>
-    <p>{{ post.entry }}</p>
-    <a href="{% url 'forum:thread-list' %}">Back to Threads</a>
+<h1>{{ thread.title }}</h1>
+
+<p>By: {{ thread.author.name }}</p>
+<p>Category: {{ thread.category.name }}</p>
+<p>{{ thread.created_on|date:"M d, Y H:i" }}</p>
+
+{% if thread.image %}
+    <img src="{{ thread.image.url }}" alt="Thread image">
+{% endif %}
+
+<p>{{ thread.entry }}</p>
+
+{% if user.is_authenticated and user.profile == thread.author %}
+    <a href="{% url 'forum:edit_thread' thread.pk %}">Edit Thread</a>
+{% endif %}
+
+<h2>Comments</h2>
+<ul>
+    {% for comment in comments %}
+        <li>
+            <strong>{% if comment.author %}
+                        {{ comment.author.name }}
+                    {% else %}
+                        Anonymous
+                    {% endif %}
+</strong> said:
+            <p>{{ comment.entry }}</p>
+            <small>{{ comment.created_on|date:"M d, Y H:i" }}</small>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Post Comment</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to comment.</p>
+{% endif %}
+
+<hr>
+
+<h3>Related Threads</h3>
+<ul>
+    {% for related in related_threads %}
+        <li><a href="{% url 'forum:thread_detail' related.pk %}">{{ related.title }}</a></li>
+    {% empty %}
+        <li>No threads available.</li>
+    {% endfor %}
+</ul>
+
+<p><a href="{% url 'forum:thread_list' %}">Back to Thread List</a></p>
+
 {% endblock %}

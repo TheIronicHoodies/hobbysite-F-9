@@ -17,16 +17,17 @@ class CommissionsDetail(DetailView, FormMixin):
     model = Commission
     template_name = 'commissions_detail.html'
     redirect_field_name = '/accounts/login'
-    form_class = JobApplicationForm
-    
+    form_class = JobForm
+        
     def post(self, request, *args, **kwargs):
-        ja = JobApplication()
-        ja.job = Commission.jobs.job.get('job')
-        ja.applicant = self.request.user.profile
-        ja.status = 'Pending'
-        ja.save()
+        j = Job()
+        j.commission = self.get_object()
+        j.role = self.request.POST.get('role')
+        j.manpower_required = self.request.POST.get('manpower_required')
+        j.status = self.request.POST.get('status')
+        j.save()
         return self.get(request, *args, **kwargs)
-
+    
 
 class CreateCommission(CreateView, LoginRequiredMixin):
     model = Commission
@@ -47,13 +48,24 @@ class UpdateCommission(UpdateView, LoginRequiredMixin):
         return super().get(request, *args, **kwargs)
 
 
-class CreateJob(CreateView, LoginRequiredMixin):
+class JobView(DetailView, FormMixin):
     model = Job
-    form_class = JobForm
-    template_name = 'commissions_create.html'
+    template_name = 'job_detail.html'
+    form_class = JobApplicationForm
     
+    def post(self, request, *args, **kwargs):
+        ja = JobApplication()
+        ja.job = self.get_object()
+        ja.applicant = self.request.user.profile
+        ja.status = 'Pending'
+        ja.applied_on = self.request.POST.get('applied_on')
+        ja.save()
+        return self.get(request, *args, **kwargs)
+
     
 class UpdateJob(UpdateView, LoginRequiredMixin):
     model = Job
     form_class = JobForm
-    template_name = 'commissions_update.html'
+    template_name = 'job_update.html'
+    
+    

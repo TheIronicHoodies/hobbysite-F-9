@@ -3,14 +3,7 @@
 {% block title %}Wiki Articles{% endblock %} 
 {% block content %}
     <h1> User Articles </h1>
-    {% if request.user.is_authenticated %}
-    <form method="POST" action="{% url 'logout' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Logout</button>
-    </form>
-    {% endif %}
-    <p><a href="{% url 'wiki:create' %}">Create article</a></p>
+    <p><a href={% url 'wiki:create' %}>Create article</a></p>
     {% for object in object_list %}
         {% for article in object.articles.all %}
             {% if article.author.user == request.user %}
