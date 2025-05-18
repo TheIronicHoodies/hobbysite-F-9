@@ -16,7 +16,7 @@
     <br>
     <h1> Jobs: </h1>
     {% for job in commission.jobs.all %}
-        <p>Role: <a href ={% url 'commissions:job-detail' pk=job.pk %}>{{job.role}}</a> </p>
+        <p>Role: <a href="{% url 'commissions:job-detail' pk=job.pk %}">{{job.role}}</a> </p>
     {% endfor %}
     
     {% if request.user.profile == commission.author %}
