@@ -84,10 +84,11 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
         return super().form_valid(form)
 
 
-class CartView(ListView):
+class CartView(ListView, LoginRequiredMixin):
     model = Transaction
     template_name = 'cart.html'
     context_object_name = 'cart'
+    redirect_field_name = '/accounts/login'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

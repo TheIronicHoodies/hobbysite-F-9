@@ -40,6 +40,7 @@ class UpdateCommission(UpdateView, LoginRequiredMixin):
     model = Commission
     form_class = CommissionUpdateForm
     template_name = 'commissions_update.html'
+    redirect_field_name = '/accounts/login'
     
     def get(self, request, *args, **kwargs):
         affected_commission = get_object_or_404(Commission, pk=self.kwargs["pk"])
@@ -52,6 +53,7 @@ class JobView(DetailView, FormMixin):
     model = Job
     template_name = 'job_detail.html'
     form_class = JobApplicationForm
+    redirect_field_name = '/accounts/login'
     
     def post(self, request, *args, **kwargs):
         ja = JobApplication()
@@ -67,5 +69,6 @@ class UpdateJob(UpdateView, LoginRequiredMixin):
     model = Job
     form_class = JobForm
     template_name = 'job_update.html'
+    redirect_field_name = '/accounts/login'
     
     
