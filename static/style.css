@@ -60,14 +60,13 @@ input, select, textarea {
 
 marquee {
     display: block;
-    flex: 1;
     margin: 0 0 0 0;
+}
 
-    & #vertical_dvd {
-        border: 1px var(--light-blue) solid;
-        height: 100%;
-        width: 100%;
-    }
+#vertical_dvd {
+    border: 1px solid var(--light-blue);
+    height: 100%;
+    width: 20%;
 }
 
 marquee a, marquee a:visited {
