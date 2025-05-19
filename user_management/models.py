@@ -9,7 +9,7 @@ class Profile(models.Model):
     email_address = models.EmailField()
 
     def __str__(self):
-        return f'{self.user.first_name}'
+        return f'{self.user.name}'
 
     def get_absolute_url(self):
         return reverse('home')
