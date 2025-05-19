@@ -12,5 +12,5 @@ class Profile(models.Model):
         return f'{self.name}'
 
     def get_absolute_url(self):
-        return reverse('wiki:list') #temporary fix set this to home url
+        return reverse('home') #temporary fix set this to home url
     
