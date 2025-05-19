@@ -5,8 +5,9 @@ from .models import Profile
 
 # Create your views here.
 class ProfileCreate(CreateView):
-    template_name = "registration/register.html"
+    model = Profile
     form_class = ProfileCreateForm
+    template_name = "registration/register.html"
 
 class ProfileUpdate(UpdateView):
     model = Profile

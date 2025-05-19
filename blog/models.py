@@ -6,18 +6,13 @@ from django.urls import reverse
 
 class ArticleCategory(models.Model):
     """
-        This creates an ArticleCategory model which orders categories in alphebetic order (ascending)
+        This creates an ArticleCategory model which orders categories in alphabetic order (ascending)
     """
-    
-    name = models.CharField(max_length = 255)
-    # creates field for ArticleCategory name    
-
-    description = models.TextField()
-    # creates TextField for description
+    name = models.CharField(max_length = 255) # creates field for ArticleCategory name    
+    description = models.TextField() # creates TextField for description
 
     class Meta:
-        ordering = ['name']
-        # sorts categories by ascending order
+        ordering = ['name'] # sorts categories by ascending order
 
     def __str__(self):
         return self.name
