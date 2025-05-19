@@ -11,11 +11,13 @@
         <header>
             <marquee behavior="alternate" direction="down" id="vertical_dvd">
                 <marquee behavior="alternate" direction="">
-                    {% if request.resolver_match.app_name and request.resolver_match.app_name != 'user_management' %}
-                        {{request.resolver_match.app_name}}
-                    {% else %}
-                        hobbysite
-                    {% endif %}
+                    <a href="{% url 'home' %}" id="app_title" class="strong">
+                        {% if request.resolver_match.app_name and request.resolver_match.app_name != 'user_management' %}
+                            {{request.resolver_match.app_name}}
+                        {% else %}
+                            hobbysite
+                        {% endif %}
+                    </a>
                 </marquee>
             </marquee>
             

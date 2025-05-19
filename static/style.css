@@ -9,8 +9,10 @@ body {
     background-color: var(--dark-blue);
     color: var(--light-blue);
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 1em;
+    left: 0;
+    margin: none;
+    padding: none;
+    top: 0;
 }
 
 h1 {
@@ -58,13 +60,18 @@ input, select, textarea {
 
 marquee {
     display: block;
+    flex: 1;
     margin: 0 0 0 0;
+
+    & #vertical_dvd {
+        border: 1px var(--light-blue) solid;
+        height: 100%;
+        width: 100%;
+    }
 }
 
-#vertical_dvd {
-    border: 1px var(--light-blue) solid;
-    height: 100%;
-    width: 20%;
+marquee a, marquee a:visited {
+    color: var(--light-blue);
 }
 
 section h1 {
